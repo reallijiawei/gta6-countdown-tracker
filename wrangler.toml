@@ -1,3 +1,7 @@
 name = "gta6-countdown-tracker"
 compatibility_date = "2026-05-27"
 pages_build_output_dir = "dist"
+
+[[kv_namespaces]]
+binding = "POLL_KV"
+id = "e7bc1a4797084623bfbdc86dbd411e16"

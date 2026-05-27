@@ -1,41 +1,134 @@
----
-const priceOptions = [
-  { label: '$69.99', value: 28 },
-  { label: '$79.99', value: 34 },
-  { label: '$89.99', value: 21 },
-  { label: '$99.99+', value: 17 },
-];
-
-const platforms = [
-  { label: 'PlayStation 5', value: 46 },
-  { label: 'Xbox Series X|S', value: 31 },
-  { label: 'Waiting for PC', value: 23 },
-];
----
-
-<section class="grid gap-4 lg:grid-cols-2">
-  <div class="surface rounded-lg p-6">
+<section class="grid gap-4 lg:grid-cols-2" data-poll-widget>
+  <div class="surface rounded-lg p-6" data-poll="price">
     <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-mint">Community pulse</p>
     <h2 class="mt-2 font-display text-2xl font-black text-white">What do you think GTA 6 will cost?</h2>
-    <div class="mt-5 space-y-3">
-      {priceOptions.map((option) => (
-        <button class="w-full rounded-md border border-white/10 bg-white/[0.04] p-3 text-left transition hover:border-mint/60 hover:bg-mint/10" type="button">
-          <span class="flex justify-between text-sm font-bold text-white"><span>{option.label}</span><span>{option.value}%</span></span>
-          <span class="mt-2 block h-2 rounded-full bg-white/10"><span class="block h-full rounded-full bg-mint" style={`width:${option.value}%`}></span></span>
-        </button>
-      ))}
-    </div>
+    <p class="mt-2 text-sm text-zinc-400" data-poll-total>Loading live votes...</p>
+    <div class="mt-5 space-y-3" data-poll-options></div>
   </div>
-  <div class="surface rounded-lg p-6">
+  <div class="surface rounded-lg p-6" data-poll="platform">
     <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-cyan">Platform vote</p>
     <h2 class="mt-2 font-display text-2xl font-black text-white">Which platform will you play on?</h2>
-    <div class="mt-5 space-y-3">
-      {platforms.map((option) => (
-        <button class="w-full rounded-md border border-white/10 bg-white/[0.04] p-3 text-left transition hover:border-cyan/60 hover:bg-cyan/10" type="button">
-          <span class="flex justify-between text-sm font-bold text-white"><span>{option.label}</span><span>{option.value}%</span></span>
-          <span class="mt-2 block h-2 rounded-full bg-white/10"><span class="block h-full rounded-full bg-cyan" style={`width:${option.value}%`}></span></span>
-        </button>
-      ))}
-    </div>
+    <p class="mt-2 text-sm text-zinc-400" data-poll-total>Loading live votes...</p>
+    <div class="mt-5 space-y-3" data-poll-options></div>
   </div>
 </section>
+
+<script>
+  const storageKey = 'gta6-poll-votes';
+
+  interface PollOption {
+    id: string;
+    label: string;
+    votes: number;
+    percent: number;
+  }
+
+  interface Poll {
+    id: string;
+    label: string;
+    totalVotes: number;
+    options: PollOption[];
+  }
+
+  type Polls = Record<string, Poll>;
+  type StoredVotes = Record<string, string>;
+
+  function getVotes() {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) || '{}') as StoredVotes;
+    } catch {
+      return {};
+    }
+  }
+
+  function setVote(pollId: string, optionId: string) {
+    const votes = getVotes();
+    votes[pollId] = optionId;
+    localStorage.setItem(storageKey, JSON.stringify(votes));
+  }
+
+  function optionMarkup(pollId: string, option: PollOption, tone: 'mint' | 'cyan', selectedOptionId?: string) {
+    const selected = selectedOptionId === option.id;
+    const disabled = Boolean(selectedOptionId);
+    const color = tone === 'mint' ? '#3ff5a3' : '#6ee7ff';
+    return `
+      <button
+        class="w-full rounded-md border border-white/10 bg-white/[0.04] p-3 text-left transition hover:bg-white/[0.08] disabled:cursor-default"
+        type="button"
+        data-poll-option="${option.id}"
+        data-poll-id="${pollId}"
+        ${disabled ? 'disabled' : ''}
+        style="${selected ? `border-color:${color};background:color-mix(in srgb, ${color} 10%, transparent);` : ''}"
+      >
+        <span class="flex justify-between gap-3 text-sm font-bold text-white">
+          <span>${option.label}${selected ? ' · your vote' : ''}</span>
+          <span>${option.percent}%</span>
+        </span>
+        <span class="mt-2 block h-2 rounded-full bg-white/10">
+          <span class="block h-full rounded-full" style="width:${option.percent}%;background:${color};"></span>
+        </span>
+        <span class="mt-2 block text-xs text-zinc-400">${option.votes.toLocaleString()} votes</span>
+      </button>
+    `;
+  }
+
+  function renderPolls(polls: Polls) {
+    const votes = getVotes();
+    document.querySelectorAll('[data-poll]').forEach((container) => {
+      const pollId = container.getAttribute('data-poll');
+      if (!pollId) return;
+      const poll = polls[pollId];
+      if (!poll) return;
+
+      const tone = pollId === 'price' ? 'mint' : 'cyan';
+      const total = container.querySelector('[data-poll-total]');
+      const options = container.querySelector('[data-poll-options]');
+      if (total) total.textContent = `${poll.totalVotes.toLocaleString()} live votes`;
+      if (options) {
+        options.innerHTML = poll.options.map((option) => optionMarkup(pollId, option, tone, votes[pollId])).join('');
+      }
+    });
+  }
+
+  async function loadPolls() {
+    const response = await fetch('/api/polls', { headers: { accept: 'application/json' } });
+    if (!response.ok) throw new Error('Poll API is unavailable.');
+    const data = await response.json();
+    renderPolls(data.polls);
+  }
+
+  async function vote(pollId: string, optionId: string) {
+    const response = await fetch('/api/polls', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', accept: 'application/json' },
+      body: JSON.stringify({ pollId, optionId }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Unable to record vote.');
+    setVote(pollId, optionId);
+    renderPolls(data.polls);
+  }
+
+  document.addEventListener('click', async (event) => {
+    const button = event.target instanceof Element ? event.target.closest('[data-poll-option]') : null;
+    if (!(button instanceof HTMLButtonElement)) return;
+    const pollId = button.dataset.pollId;
+    const optionId = button.dataset.pollOption;
+    if (!pollId || !optionId) return;
+
+    button.disabled = true;
+    try {
+      await vote(pollId, optionId);
+    } catch (error) {
+      button.disabled = false;
+      const message = error instanceof Error ? error.message : 'Unable to record vote.';
+      alert(message);
+    }
+  });
+
+  loadPolls().catch((error) => {
+    document.querySelectorAll('[data-poll-total]').forEach((node) => {
+      node.textContent = error instanceof Error ? error.message : 'Poll API is unavailable.';
+    });
+  });
+</script>
