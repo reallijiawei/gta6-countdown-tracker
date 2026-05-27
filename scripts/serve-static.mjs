@@ -26,6 +26,29 @@ function resolvePath(url) {
 }
 
 const server = createServer((request, response) => {
+  if (request.url?.startsWith('/api/polls')) {
+    const chunks = [];
+    request.on('data', (chunk) => chunks.push(chunk));
+    request.on('end', async () => {
+      try {
+        const upstream = await fetch('https://gta6-countdown-tracker.pages.dev/api/polls', {
+          method: request.method,
+          headers: {
+            'content-type': request.headers['content-type'] || 'application/json',
+            accept: 'application/json',
+          },
+          body: request.method === 'GET' || request.method === 'HEAD' ? undefined : Buffer.concat(chunks),
+        });
+        response.writeHead(upstream.status, { 'content-type': 'application/json; charset=utf-8' });
+        response.end(await upstream.text());
+      } catch {
+        response.writeHead(502, { 'content-type': 'application/json; charset=utf-8' });
+        response.end(JSON.stringify({ error: 'Unable to reach production poll API.' }));
+      }
+    });
+    return;
+  }
+
   const file = resolvePath(request.url || '/');
   if (!existsSync(file)) {
     response.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
