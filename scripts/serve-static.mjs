@@ -1,9 +1,11 @@
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
+import { createPollState, recordVote, serializePolls } from './polls-core.mjs';
 
 const root = join(process.cwd(), 'dist');
 const port = Number(process.env.PORT || 4321);
+let localPollState = createPollState();
 
 const types = {
   '.css': 'text/css; charset=utf-8',
@@ -42,8 +44,19 @@ const server = createServer((request, response) => {
         response.writeHead(upstream.status, { 'content-type': 'application/json; charset=utf-8' });
         response.end(await upstream.text());
       } catch {
-        response.writeHead(502, { 'content-type': 'application/json; charset=utf-8' });
-        response.end(JSON.stringify({ error: 'Unable to reach production poll API.' }));
+        if (request.method === 'POST') {
+          try {
+            const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+            localPollState = recordVote(localPollState, body.pollId, body.optionId);
+          } catch (error) {
+            response.writeHead(400, { 'content-type': 'application/json; charset=utf-8' });
+            response.end(JSON.stringify({ error: error instanceof Error ? error.message : 'Unable to record vote.' }));
+            return;
+          }
+        }
+
+        response.writeHead(200, { 'content-type': 'application/json; charset=utf-8' });
+        response.end(JSON.stringify({ polls: serializePolls(localPollState), localFallback: true }));
       }
     });
     return;
