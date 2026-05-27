@@ -1,0 +1,32 @@
+---
+import game from '../data/game.json';
+import StatusPill from './StatusPill.astro';
+---
+
+<section class="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+  <article class="surface rounded-lg p-5">
+    <p class="text-sm text-zinc-400">Release date</p>
+    <h3 class="mt-2 font-display text-2xl font-black text-white">{game.officialReleaseDateText}</h3>
+    <p class="mt-3 text-sm text-zinc-400">Official page lists PS5 and Xbox Series X|S.</p>
+  </article>
+  <article class="surface rounded-lg p-5">
+    <p class="text-sm text-zinc-400">Official price</p>
+    <h3 class="mt-2 font-display text-2xl font-black text-white">Pending</h3>
+    <div class="mt-3"><StatusPill status={game.officialPriceStatus} /></div>
+  </article>
+  <article class="surface rounded-lg p-5">
+    <p class="text-sm text-zinc-400">Pre-order</p>
+    <h3 class="mt-2 font-display text-2xl font-black text-white">Not live</h3>
+    <div class="mt-3"><StatusPill status={game.preorderStatus} /></div>
+  </article>
+  <article class="surface rounded-lg p-5">
+    <p class="text-sm text-zinc-400">Launch platforms</p>
+    <h3 class="mt-2 font-display text-2xl font-black text-white">PS5 / Xbox</h3>
+    <p class="mt-3 text-sm text-zinc-400">Confirmed console launch platforms.</p>
+  </article>
+  <article class="surface rounded-lg p-5">
+    <p class="text-sm text-zinc-400">PC version</p>
+    <h3 class="mt-2 font-display text-2xl font-black text-white">Unlisted</h3>
+    <div class="mt-3"><StatusPill status="not_officially_announced" /></div>
+  </article>
+</section>

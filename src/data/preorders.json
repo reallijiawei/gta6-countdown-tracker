@@ -1,0 +1,47 @@
+[
+  {
+    "store": "PlayStation Store",
+    "platform": "PS5",
+    "region": "US",
+    "status": "wishlist",
+    "url": "https://store.playstation.com/concept/10000730",
+    "note": "Wishlist is available; pre-order is not live.",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "store": "Xbox Store",
+    "platform": "Xbox Series X|S",
+    "region": "US",
+    "status": "wishlist",
+    "url": "",
+    "note": "Official page may support wishlist, but no pre-order is confirmed.",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "store": "Amazon",
+    "platform": "PS5 / Xbox",
+    "region": "US",
+    "status": "not_live",
+    "url": "",
+    "note": "No reliable listing is linked until an official retail page is confirmed.",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "store": "Best Buy",
+    "platform": "PS5 / Xbox",
+    "region": "US",
+    "status": "not_live",
+    "url": "",
+    "note": "Rumors are not treated as official availability.",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "store": "GameStop",
+    "platform": "PS5 / Xbox",
+    "region": "US",
+    "status": "not_live",
+    "url": "",
+    "note": "No official pre-order confirmed.",
+    "lastChecked": "2026-05-27"
+  }
+]

@@ -1,0 +1,31 @@
+---
+import prices from '../data/prices.json';
+import StatusPill from './StatusPill.astro';
+---
+
+<div class="surface overflow-x-auto rounded-lg">
+  <table>
+    <thead>
+      <tr>
+        <th>Region</th>
+        <th>Platform</th>
+        <th>Edition</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Last checked</th>
+      </tr>
+    </thead>
+    <tbody>
+      {prices.map((row) => (
+        <tr>
+          <td>{row.region}</td>
+          <td>{row.platform}</td>
+          <td>{row.edition}</td>
+          <td class="font-bold text-white">{row.price === null ? 'Not officially announced' : `${row.currency} ${row.price}`}</td>
+          <td><StatusPill status={row.status} /></td>
+          <td>{row.lastChecked}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

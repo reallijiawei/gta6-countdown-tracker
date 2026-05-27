@@ -1,0 +1,59 @@
+---
+import game from '../data/game.json';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<section class={compact ? 'surface rounded-lg p-5' : 'surface rounded-lg p-6 sm:p-8'} data-countdown-root data-target={game.releaseDate}>
+  <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-mint">Live release countdown</p>
+      <h2 class="mt-2 font-display text-2xl font-black text-white sm:text-3xl">November 19, 2026</h2>
+    </div>
+    <p class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-zinc-300">Local time display</p>
+  </div>
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+    {['days', 'hours', 'minutes', 'seconds'].map((unit) => (
+      <div class="rounded-md border border-white/10 bg-black/30 p-4 text-center">
+        <div class="font-display text-4xl font-black text-white sm:text-5xl" data-countdown-value={unit}>--</div>
+        <div class="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-zinc-400">{unit}</div>
+      </div>
+    ))}
+  </div>
+  <p class="mt-4 text-sm text-zinc-400" data-countdown-message>
+    Countdown targets the official listed release date. Exact regional unlock times may differ by platform.
+  </p>
+</section>
+
+<script>
+  function updateCountdown(root: HTMLElement) {
+    const target = new Date(root.dataset.target ?? '2026-11-19T00:00:00Z');
+    const now = new Date();
+    const diff = target.getTime() - now.getTime();
+    const values = {
+      days: Math.max(0, Math.floor(diff / 86400000)),
+      hours: Math.max(0, Math.floor((diff % 86400000) / 3600000)),
+      minutes: Math.max(0, Math.floor((diff % 3600000) / 60000)),
+      seconds: Math.max(0, Math.floor((diff % 60000) / 1000)),
+    };
+
+    Object.entries(values).forEach(([unit, value]) => {
+      const node = root.querySelector(`[data-countdown-value="${unit}"]`);
+      if (node) node.textContent = String(value).padStart(unit === 'days' ? 1 : 2, '0');
+    });
+
+    if (diff <= 0) {
+      const message = root.querySelector('[data-countdown-message]');
+      if (message) message.textContent = 'GTA 6 is out now.';
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-countdown-root]').forEach((root) => {
+    updateCountdown(root);
+    setInterval(() => updateCountdown(root), 1000);
+  });
+</script>

@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+import { canonical, faqSchema, siteName, websiteSchema } from '../lib/seo';
+import Disclaimer from '../components/Disclaimer.astro';
+import game from '../data/game.json';
+
+interface Props {
+  title: string;
+  description: string;
+  pathname: string;
+  schema?: unknown[];
+}
+
+const { title, description, pathname, schema = [] } = Astro.props;
+const url = canonical(pathname);
+const jsonLd = [websiteSchema(), faqSchema(), ...schema];
+
+const nav = [
+  ['/', 'Home'],
+  ['/gta-6-price', 'Price'],
+  ['/gta-6-preorder', 'Pre-order'],
+  ['/gta-6-countdown', 'Countdown'],
+  ['/gta-6-history', 'History'],
+  ['/about', 'About'],
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {jsonLd.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
+  </head>
+  <body>
+    <header class="sticky top-0 z-30 border-b border-white/10 bg-asphalt/86 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+        <a href="/" class="font-display text-lg font-black uppercase tracking-[0.08em] text-white">
+          GTA 6 <span class="text-mint">Tracker</span>
+        </a>
+        <nav class="flex gap-1 overflow-x-auto pb-1 lg:pb-0" aria-label="Main navigation">
+          {nav.map(([href, label]) => (
+            <a class={`rounded-full px-3 py-2 text-sm font-bold transition hover:bg-white/10 ${pathname === href ? 'bg-mint text-black' : 'text-zinc-300'}`} href={href}>{label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+      <Disclaimer />
+      <div class="mt-6 flex flex-col justify-between gap-3 border-t border-white/10 pt-6 text-sm text-zinc-500 sm:flex-row">
+        <p>Last updated: {game.lastUpdated}.</p>
+        <p>Built as a fast static SEO tracker with local JSON data.</p>
+      </div>
+    </footer>
+  </body>
+</html>

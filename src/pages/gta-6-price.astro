@@ -1,0 +1,50 @@
+---
+import FAQSection from '../components/FAQSection.astro';
+import PriceTable from '../components/PriceTable.astro';
+import StatusPill from '../components/StatusPill.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const title = 'GTA 6 Price Tracker: Official Price, Editions and Platform Status';
+const description = 'Is the GTA 6 price officially announced? Track GTA 6 prices, editions, platform availability and regional price updates in this unofficial tracker.';
+---
+
+<MainLayout title={title} description={description} pathname="/gta-6-price">
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <div class="max-w-3xl">
+      <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-amber">Price status</p>
+      <h1 class="mt-4 font-display text-5xl font-black leading-tight text-white">GTA 6 price tracker: no official price yet.</h1>
+      <p class="mt-5 text-lg leading-8 text-zinc-300">
+        This page separates confirmed information from placeholders, rumors and speculation. Until Rockstar or official platform stores publish prices, every edition and region remains marked as not officially announced.
+      </p>
+    </div>
+    <div class="mt-8 surface rounded-lg p-6">
+      <p class="text-sm text-zinc-400">Current conclusion</p>
+      <div class="mt-3 flex flex-wrap items-center gap-4">
+        <h2 class="font-display text-3xl font-black text-white">Official price has not been announced yet.</h2>
+        <StatusPill status="not_officially_announced" />
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl space-y-8 px-4 pb-14 sm:px-6">
+    <div>
+      <h2 class="mb-4 font-display text-3xl font-black text-white">Regional price table</h2>
+      <PriceTable />
+    </div>
+    <div class="grid gap-5 lg:grid-cols-3">
+      <article class="surface rounded-lg p-6">
+        <h3 class="font-display text-xl font-black text-white">Edition status</h3>
+        <p class="mt-3 text-zinc-300">Standard, Deluxe, Premium and Collector's Edition prices are all unconfirmed until official pages list them.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h3 class="font-display text-xl font-black text-white">Rumor policy</h3>
+        <p class="mt-3 text-zinc-300">Reddit posts, retail placeholders and forum claims are not displayed as facts. They can only be labeled as rumor or placeholder.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h3 class="font-display text-xl font-black text-white">AAA comparison</h3>
+        <p class="mt-3 text-zinc-300">The tracker can add historical AAA launch pricing later, but the MVP keeps GTA 6 official status front and center.</p>
+      </article>
+    </div>
+    <FAQSection limit={5} />
+  </section>
+</MainLayout>

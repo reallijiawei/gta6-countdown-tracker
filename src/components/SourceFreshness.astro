@@ -1,0 +1,35 @@
+---
+import sourceChecks from '../data/source-checks.json';
+---
+
+<section class="surface rounded-lg p-6">
+  <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+    <div>
+      <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-mint">Freshness monitor</p>
+      <h2 class="mt-2 font-display text-2xl font-black text-white">Daily source check</h2>
+      <p class="mt-2 max-w-3xl text-zinc-300">{sourceChecks.note}</p>
+    </div>
+    <div class={`status-pill ${sourceChecks.overallStatus === 'ok' ? 'bg-mint/10 text-mint' : 'bg-amber/10 text-amber'}`}>
+      {sourceChecks.overallStatus === 'ok' ? 'Sources OK' : 'Needs review'}
+    </div>
+  </div>
+  <p class="mt-4 text-sm text-zinc-400">Last checked: <strong class="text-white">{sourceChecks.lastChecked}</strong></p>
+  <div class="mt-5 grid gap-3 md:grid-cols-2">
+    {sourceChecks.sources.map((source) => (
+      <article class="rounded-md border border-white/10 bg-black/25 p-4">
+        <div class="flex items-start justify-between gap-3">
+          <h3 class="font-display text-lg font-black text-white">{source.label}</h3>
+          <span class={`status-pill ${source.ok && source.missingSignals.length === 0 ? 'bg-mint/10 text-mint' : 'bg-amber/10 text-amber'}`}>
+            {source.ok && source.missingSignals.length === 0 ? 'Verified' : 'Review'}
+          </span>
+        </div>
+        <p class="mt-2 text-sm text-zinc-400">HTTP status: {source.status ?? 'n/a'}</p>
+        <p class="mt-2 text-sm text-zinc-300">Matched signals: {source.matchedSignals.length}</p>
+        {source.missingSignals.length > 0 && (
+          <p class="mt-2 text-sm text-amber">Missing expected signals: {source.missingSignals.join(', ')}</p>
+        )}
+        <a class="mt-3 inline-block text-sm font-bold text-mint underline decoration-mint/30 underline-offset-4" href={source.url}>Open source</a>
+      </article>
+    ))}
+  </div>
+</section>

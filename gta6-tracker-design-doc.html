@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTA 6 Price & Countdown Tracker 网站设计文档</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --card-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #374151;
+      --accent: #22c55e;
+      --accent-2: #38bdf8;
+      --danger: #f97316;
+      --code: #020617;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.7;
+      background: var(--bg);
+      color: var(--text);
+    }
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 48px 20px 96px;
+    }
+    h1, h2, h3, h4 {
+      line-height: 1.25;
+      margin-top: 1.8em;
+      margin-bottom: 0.6em;
+    }
+    h1 {
+      font-size: 40px;
+      margin-top: 0;
+      letter-spacing: -0.03em;
+    }
+    h2 {
+      font-size: 28px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 { font-size: 22px; color: #f9fafb; }
+    h4 { font-size: 18px; color: #f3f4f6; }
+    p { color: var(--text); }
+    a { color: var(--accent-2); }
+    .hero {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.14), rgba(56,189,248,0.10)), var(--card);
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border: 1px solid rgba(34,197,94,0.5);
+      color: #86efac;
+      background: rgba(34,197,94,0.12);
+      border-radius: 999px;
+      font-size: 13px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      margin: 18px 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .muted { color: var(--muted); }
+    .ok { color: #86efac; }
+    .warn { color: #fdba74; }
+    .info { color: #7dd3fc; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+      margin: 16px 0;
+      background: var(--card);
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      background: var(--card-2);
+      color: #f9fafb;
+      font-weight: 700;
+    }
+    code {
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 6px;
+      color: #bfdbfe;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    pre {
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      overflow-x: auto;
+      color: #dbeafe;
+    }
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      color: inherit;
+    }
+    ul, ol { padding-left: 1.4em; }
+    li { margin: 0.35em 0; }
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+    .toc a { text-decoration: none; }
+    .note {
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      background: rgba(34,197,94,0.08);
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+    .warning {
+      border-left: 4px solid var(--danger);
+      padding: 12px 16px;
+      background: rgba(249,115,22,0.10);
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+    @media (max-width: 800px) {
+      .grid, .grid-3 { grid-template-columns: 1fr; }
+      h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <span class="badge">MVP 设计文档</span>
+    <span class="badge">SEO 数据站</span>
+    <span class="badge">适合 Agent / Codex 开发</span>
+    <h1>GTA 6 Price & Countdown Tracker 网站设计文档</h1>
+    <p>
+      本文档用于指导 Agent 开发一个围绕 GTA 6 的英文 SEO 小站。网站不是新闻聚合站，而是一个
+      <strong>价格追踪 + 发售倒计时 + 预购状态 + 历史数据可视化 + 用户投票</strong> 的轻量级数据/工具站。
+    </p>
+    <p class="muted">
+      当前公开事实：Rockstar 官方公布 GTA VI 发售日期为 2026-11-19。价格、正式预购、各版本信息在未获得官方或平台商店确认前，统一显示为 “Not officially announced”。
+    </p>
+  </section>
+
+  <nav class="toc">
+    <h2>目录</h2>
+    <ol>
+      <li><a href="#overview">项目概述</a></li>
+      <li><a href="#positioning">产品定位与差异化</a></li>
+      <li><a href="#mvp">MVP 范围</a></li>
+      <li><a href="#pages">页面与路由设计</a></li>
+      <li><a href="#features">核心功能模块</a></li>
+      <li><a href="#data">数据结构设计</a></li>
+      <li><a href="#ui">UI 与交互要求</a></li>
+      <li><a href="#seo">SEO 设计</a></li>
+      <li><a href="#monetization">变现设计</a></li>
+      <li><a href="#tech">技术实现建议</a></li>
+      <li><a href="#tasks">开发任务拆解</a></li>
+      <li><a href="#acceptance">验收标准</a></li>
+    </ol>
+  </nav>
+
+  <section id="overview">
+    <h2>1. 项目概述</h2>
+    <div class="card">
+      <h3>项目名称</h3>
+      <p><strong>GTA 6 Price & Countdown Tracker</strong></p>
+      <p>备选名称：</p>
+      <ul>
+        <li>GTA 6 Tracker</li>
+        <li>GTA VI Price Tracker</li>
+        <li>GTA 6 Countdown Hub</li>
+        <li>Next Game Tracker：后续可扩展成大型游戏发售追踪站</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>一句话说明</h3>
+      <p>
+        一个非官方的 GTA 6 发售与价格追踪工具站，帮助玩家快速查看 GTA 6 发售倒计时、价格是否公布、预购是否开启、各平台状态、历史 GTA 系列数据和社区预测。
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>目标用户</h3>
+      <ul>
+        <li>正在搜索 GTA 6 价格、发售时间、预购状态的普通玩家。</li>
+        <li>想知道 GTA 6 是否开放预购的主机玩家。</li>
+        <li>关注 GTA 6 价格是否会涨到 80/100 美元的游戏玩家。</li>
+        <li>想查看 GTA 系列历史发售间隔、销量、评分、Trailer 数据的内容消费者。</li>
+      </ul>
+    </div>
+
+    <div class="warning">
+      <strong>重要合规提示：</strong>
+      本站必须明确标注 “Unofficial fan-made tracker. Not affiliated with Rockstar Games or Take-Two Interactive.”。
+      不要使用 Rockstar 官方 Logo、受版权保护的游戏截图、盗版资源、未授权品牌视觉素材。
+    </div>
+  </section>
+
+  <section id="positioning">
+    <h2>2. 产品定位与差异化</h2>
+
+    <h3>2.1 不做什么</h3>
+    <ul>
+      <li>不做纯新闻聚合站。</li>
+      <li>不搬运游戏媒体文章。</li>
+      <li>不发布未经确认的价格传闻作为事实。</li>
+      <li>不做盗版下载、泄露内容、外挂、账号交易、CDKey 灰色导流。</li>
+    </ul>
+
+    <h3>2.2 要做什么</h3>
+    <p>
+      站点应该以结构化信息和工具价值为核心。核心卖点不是“我也报道 GTA 6 新闻”，而是：
+    </p>
+    <ul>
+      <li>用户打开页面立刻看到倒计时。</li>
+      <li>用户立刻知道官方价格是否公布。</li>
+      <li>用户立刻知道 PS5 / Xbox / PC 各平台状态。</li>
+      <li>用户可以查看不同地区、不同平台的预购状态。</li>
+      <li>用户可以看到 GTA 系列历史发售间隔和数据可视化。</li>
+      <li>用户可以投票预测价格，增加互动和停留时间。</li>
+    </ul>
+
+    <h3>2.3 核心差异化</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>普通游戏新闻站</th>
+          <th>本站差异化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>写文章报道价格传闻</td>
+          <td>做价格状态追踪表，明确区分官方确认、平台占位、传闻</td>
+        </tr>
+        <tr>
+          <td>写“GTA 6什么时候发售”文章</td>
+          <td>做实时倒计时 + 时区说明 + 平台发售状态</td>
+        </tr>
+        <tr>
+          <td>写“GTA 6值得期待吗”</td>
+          <td>做 GTA 系列历史发售间隔、评分、销量、Trailer 数据图表</td>
+        </tr>
+        <tr>
+          <td>追逐新闻流量</td>
+          <td>沉淀 evergreen 数据页和工具页</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="mvp">
+    <h2>3. MVP 范围</h2>
+    <p>
+      第一版目标是快速上线，抢占搜索引擎收录窗口。不要做复杂后端，不要做完整社区，不要做用户系统。
+    </p>
+
+    <h3>3.1 第一版必须包含</h3>
+    <ul>
+      <li>英文站点。</li>
+      <li>响应式设计，优先适配移动端。</li>
+      <li>首页：倒计时 + 价格状态 + 预购状态 + FAQ。</li>
+      <li>价格页：不同版本、平台、地区价格状态。</li>
+      <li>预购页：不同平台预购状态。</li>
+      <li>倒计时页：发售倒计时。</li>
+      <li>历史数据页：GTA 系列发售时间线和数据可视化。</li>
+      <li>投票模块：价格预测 / 平台选择，可先用本地模拟或第三方表单。</li>
+      <li>SEO 标题、描述、canonical、Open Graph、结构化数据。</li>
+    </ul>
+
+    <h3>3.2 第一版不做</h3>
+    <ul>
+      <li>用户注册登录。</li>
+      <li>评论系统。</li>
+      <li>复杂后台。</li>
+      <li>自动爬取所有电商平台价格。</li>
+      <li>多语言。</li>
+      <li>推送通知 App。</li>
+    </ul>
+
+    <h3>3.3 后续可扩展</h3>
+    <ul>
+      <li>邮件提醒：价格公布 / 预购开启时通知。</li>
+      <li>更多游戏：The Elder Scrolls VI、Witcher 4、Marvel’s Wolverine 等。</li>
+      <li>自动化监控 PlayStation Store、Xbox Store、Amazon、Best Buy 等页面状态。</li>
+      <li>社区投票结果长期保存。</li>
+      <li>Affiliate 商品推荐模块。</li>
+    </ul>
+  </section>
+
+  <section id="pages">
+    <h2>4. 页面与路由设计</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>路由</th>
+          <th>页面名称</th>
+          <th>主要关键词</th>
+          <th>页面目标</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>/</code></td>
+          <td>首页</td>
+          <td>GTA 6 countdown, GTA 6 price, GTA 6 preorder</td>
+          <td>聚合展示最重要状态，承接主流搜索流量</td>
+        </tr>
+        <tr>
+          <td><code>/gta-6-price</code></td>
+          <td>价格追踪页</td>
+          <td>GTA 6 price, GTA VI price, how much is GTA 6</td>
+          <td>回答价格是否公布、各版本价格、各平台价格</td>
+        </tr>
+        <tr>
+          <td><code>/gta-6-preorder</code></td>
+          <td>预购追踪页</td>
+          <td>GTA 6 preorder, GTA 6 pre order PS5, GTA 6 preorder Xbox</td>
+          <td>回答预购是否开启、在哪里预购</td>
+        </tr>
+        <tr>
+          <td><code>/gta-6-countdown</code></td>
+          <td>倒计时页</td>
+          <td>GTA 6 countdown, how many days until GTA 6</td>
+          <td>提供实时发售倒计时</td>
+        </tr>
+        <tr>
+          <td><code>/gta-6-history</code></td>
+          <td>历史数据页</td>
+          <td>GTA release timeline, GTA games history, GTA 5 to GTA 6 gap</td>
+          <td>用可视化展示系列历史数据，提高差异化</td>
+        </tr>
+        <tr>
+          <td><code>/about</code></td>
+          <td>关于本站</td>
+          <td>unofficial GTA 6 tracker</td>
+          <td>说明非官方身份、数据来源、免责声明</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>4.1 首页结构</h3>
+    <ol>
+      <li>Hero 区：GTA 6 Countdown + Release Date + Price Status。</li>
+      <li>核心状态卡片：Release Date、Official Price、Pre-order、Platforms、PC Version。</li>
+      <li>倒计时组件。</li>
+      <li>价格状态表。</li>
+      <li>预购状态表。</li>
+      <li>价格预测投票。</li>
+      <li>Latest verified updates 时间线。</li>
+      <li>FAQ。</li>
+      <li>免责声明。</li>
+    </ol>
+
+    <h3>4.2 价格页结构</h3>
+    <ol>
+      <li>标题：GTA 6 Price Tracker: Is the Official Price Announced?</li>
+      <li>结论卡：Official price has not been announced yet.</li>
+      <li>版本价格表：Standard / Deluxe / Premium / Collector’s Edition。</li>
+      <li>平台价格表：PS5 / Xbox Series X|S / PC。</li>
+      <li>地区价格表：US / UK / EU / Canada / Australia / India。</li>
+      <li>传闻处理模块：Rumored prices vs official information。</li>
+      <li>历史 AAA 游戏定价对比。</li>
+      <li>FAQ。</li>
+    </ol>
+
+    <h3>4.3 预购页结构</h3>
+    <ol>
+      <li>标题：GTA 6 Pre-order Tracker: Is Pre-order Live?</li>
+      <li>结论卡：Pre-orders are not officially live yet.</li>
+      <li>平台表：PlayStation Store、Xbox Store、Amazon、Best Buy、GameStop 等。</li>
+      <li>按钮状态：Not live / Wishlist / Placeholder / Live。</li>
+      <li>邮件提醒入口：Get notified when pre-orders go live。</li>
+      <li>FAQ。</li>
+    </ol>
+
+    <h3>4.4 倒计时页结构</h3>
+    <ol>
+      <li>大号倒计时：days / hours / minutes / seconds。</li>
+      <li>发售日期说明：November 19, 2026。</li>
+      <li>不同时区的发售日期说明。</li>
+      <li>平台发售状态。</li>
+      <li>FAQ：Will GTA 6 come to PC? Is GTA 6 delayed?</li>
+    </ol>
+
+    <h3>4.5 历史数据页结构</h3>
+    <ol>
+      <li>GTA 系列主要作品发售时间线。</li>
+      <li>GTA V 到 GTA VI 等待时间可视化。</li>
+      <li>GTA 系列平台变化。</li>
+      <li>GTA 系列评分表。</li>
+      <li>GTA 系列销量/出货量数据，若没有稳定来源，先只做可维护字段。</li>
+      <li>Trailer 数据对比，注意数据需标注来源和更新时间。</li>
+    </ol>
+  </section>
+
+  <section id="features">
+    <h2>5. 核心功能模块</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>5.1 倒计时模块</h3>
+        <p>目标日期：<code>2026-11-19T00:00:00</code>，默认按用户本地时区显示。</p>
+        <ul>
+          <li>显示 Days / Hours / Minutes / Seconds。</li>
+          <li>倒计时实时刷新。</li>
+          <li>发售后自动切换为 “GTA 6 is out now”。</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5.2 价格状态模块</h3>
+        <ul>
+          <li>官方未公布前，显示 “Not officially announced”。</li>
+          <li>不要把 Reddit、论坛、电商占位价写成官方价格。</li>
+          <li>价格字段支持 confirmed / placeholder / rumor 三种状态。</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5.3 预购状态模块</h3>
+        <ul>
+          <li>展示各平台状态。</li>
+          <li>状态包括 Not live、Wishlist、Placeholder、Live、Sold out。</li>
+          <li>每条记录显示更新时间。</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5.4 历史数据可视化</h3>
+        <ul>
+          <li>使用 Chart.js、ECharts 或 Recharts。</li>
+          <li>第一版建议只做 2 张图：发售时间线、作品间隔。</li>
+          <li>图表下方保留数据表，利于 SEO。</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5.5 投票模块</h3>
+        <ul>
+          <li>问题 1：What do you think GTA 6 will cost?</li>
+          <li>选项：$69.99 / $79.99 / $89.99 / $99.99+。</li>
+          <li>问题 2：Which platform will you play on?</li>
+          <li>第一版可用本地假数据，后续接 Supabase / Firebase。</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>5.6 邮件提醒模块</h3>
+        <ul>
+          <li>第一版可只做表单 UI。</li>
+          <li>后续接 Buttondown、Beehiiv、ConvertKit、Resend + Supabase。</li>
+          <li>文案：Get notified when GTA 6 pre-orders go live。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="data">
+    <h2>6. 数据结构设计</h2>
+    <p>
+      第一版建议使用本地 JSON 文件维护数据，便于快速上线和静态部署。目录建议：
+    </p>
+
+    <pre><code>/src
+  /data
+    game.json
+    prices.json
+    preorders.json
+    gta-history.json
+    updates.json
+    faqs.json
+  /components
+  /pages 或 /app
+  /lib</code></pre>
+
+    <h3>6.1 game.json</h3>
+    <pre><code>{
+  "slug": "gta-6",
+  "title": "Grand Theft Auto VI",
+  "shortTitle": "GTA 6",
+  "releaseDate": "2026-11-19T00:00:00Z",
+  "officialReleaseDateText": "November 19, 2026",
+  "developer": "Rockstar Games",
+  "publisher": "Rockstar Games",
+  "platforms": [
+    {
+      "name": "PlayStation 5",
+      "status": "announced"
+    },
+    {
+      "name": "Xbox Series X|S",
+      "status": "announced"
+    },
+    {
+      "name": "PC",
+      "status": "not_officially_announced"
+    }
+  ],
+  "officialPriceStatus": "not_officially_announced",
+  "preorderStatus": "not_live",
+  "lastUpdated": "2026-05-26"
+}</code></pre>
+
+    <h3>6.2 prices.json</h3>
+    <pre><code>[
+  {
+    "region": "US",
+    "currency": "USD",
+    "platform": "PS5",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Rockstar Games",
+    "sourceUrl": "https://www.rockstargames.com/",
+    "lastChecked": "2026-05-26"
+  },
+  {
+    "region": "US",
+    "currency": "USD",
+    "platform": "Xbox Series X|S",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Microsoft Store",
+    "sourceUrl": "",
+    "lastChecked": "2026-05-26"
+  }
+]</code></pre>
+
+    <h3>6.3 preorders.json</h3>
+    <pre><code>[
+  {
+    "store": "PlayStation Store",
+    "platform": "PS5",
+    "region": "US",
+    "status": "wishlist",
+    "url": "",
+    "note": "Official store page may allow wishlist, but pre-order is not live.",
+    "lastChecked": "2026-05-26"
+  },
+  {
+    "store": "Xbox Store",
+    "platform": "Xbox Series X|S",
+    "region": "US",
+    "status": "not_live",
+    "url": "",
+    "note": "No official pre-order confirmed.",
+    "lastChecked": "2026-05-26"
+  },
+  {
+    "store": "Amazon",
+    "platform": "PS5 / Xbox",
+    "region": "US",
+    "status": "not_live",
+    "url": "",
+    "note": "Do not show affiliate link until listing is reliable.",
+    "lastChecked": "2026-05-26"
+  }
+]</code></pre>
+
+    <h3>6.4 gta-history.json</h3>
+    <pre><code>[
+  {
+    "title": "Grand Theft Auto III",
+    "releaseYear": 2001,
+    "releaseDate": "2001-10-22",
+    "initialPlatforms": ["PlayStation 2"],
+    "metacritic": 97,
+    "notes": "Main 3D-era breakthrough"
+  },
+  {
+    "title": "Grand Theft Auto: Vice City",
+    "releaseYear": 2002,
+    "releaseDate": "2002-10-27",
+    "initialPlatforms": ["PlayStation 2"],
+    "metacritic": 95,
+    "notes": "Vice City setting"
+  },
+  {
+    "title": "Grand Theft Auto: San Andreas",
+    "releaseYear": 2004,
+    "releaseDate": "2004-10-26",
+    "initialPlatforms": ["PlayStation 2"],
+    "metacritic": 95,
+    "notes": "Large open world"
+  },
+  {
+    "title": "Grand Theft Auto IV",
+    "releaseYear": 2008,
+    "releaseDate": "2008-04-29",
+    "initialPlatforms": ["PlayStation 3", "Xbox 360"],
+    "metacritic": 98,
+    "notes": "HD-era launch"
+  },
+  {
+    "title": "Grand Theft Auto V",
+    "releaseYear": 2013,
+    "releaseDate": "2013-09-17",
+    "initialPlatforms": ["PlayStation 3", "Xbox 360"],
+    "metacritic": 97,
+    "notes": "Long-running GTA Online ecosystem"
+  },
+  {
+    "title": "Grand Theft Auto VI",
+    "releaseYear": 2026,
+    "releaseDate": "2026-11-19",
+    "initialPlatforms": ["PlayStation 5", "Xbox Series X|S"],
+    "metacritic": null,
+    "notes": "Upcoming"
+  }
+]</code></pre>
+
+    <h3>6.5 updates.json</h3>
+    <pre><code>[
+  {
+    "date": "2026-05-26",
+    "title": "GTA 6 tracker initialized",
+    "type": "site_update",
+    "summary": "The tracker shows release date, price status, preorder status and platform status.",
+    "sourceName": "Internal update",
+    "sourceUrl": ""
+  },
+  {
+    "date": "2025-11-06",
+    "title": "Rockstar announced the November 19, 2026 release date",
+    "type": "official",
+    "summary": "Rockstar Games announced that GTA VI is set to launch on November 19, 2026.",
+    "sourceName": "Rockstar Games",
+    "sourceUrl": "https://www.rockstargames.com/newswire/"
+  }
+]</code></pre>
+
+    <h3>6.6 状态枚举</h3>
+    <pre><code>PriceStatus:
+- not_officially_announced
+- official
+- placeholder
+- rumor
+- unavailable
+
+PreorderStatus:
+- not_live
+- wishlist
+- placeholder
+- live
+- sold_out
+
+PlatformStatus:
+- announced
+- not_officially_announced
+- rumored
+- unavailable</code></pre>
+  </section>
+
+  <section id="ui">
+    <h2>7. UI 与交互要求</h2>
+
+    <h3>7.1 视觉风格</h3>
+    <ul>
+      <li>英文界面。</li>
+      <li>现代游戏工具站风格，不模仿 Rockstar 官方视觉。</li>
+      <li>深色背景 + 高对比状态卡片。</li>
+      <li>强调可读性，不要堆砌花哨动画。</li>
+      <li>移动端优先，桌面端增强。</li>
+    </ul>
+
+    <h3>7.2 核心组件</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>组件</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CountdownTimer</td>
+          <td>实时倒计时组件</td>
+        </tr>
+        <tr>
+          <td>StatusCard</td>
+          <td>展示 Release Date、Price、Preorder、Platform 状态</td>
+        </tr>
+        <tr>
+          <td>PriceTable</td>
+          <td>展示不同地区、平台、版本价格</td>
+        </tr>
+        <tr>
+          <td>PreorderTable</td>
+          <td>展示各商店预购状态</td>
+        </tr>
+        <tr>
+          <td>HistoryTimeline</td>
+          <td>展示 GTA 系列发售时间线</td>
+        </tr>
+        <tr>
+          <td>ChartBlock</td>
+          <td>图表容器，用于时间间隔、评分、平台数据</td>
+        </tr>
+        <tr>
+          <td>PollWidget</td>
+          <td>价格预测/平台投票</td>
+        </tr>
+        <tr>
+          <td>FAQSection</td>
+          <td>FAQ + Schema 结构化数据</td>
+        </tr>
+        <tr>
+          <td>Disclaimer</td>
+          <td>非官方声明</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>7.3 状态标签文案</h3>
+    <pre><code>not_officially_announced: "Not officially announced"
+official: "Official"
+placeholder: "Placeholder listing"
+rumor: "Rumor / unconfirmed"
+not_live: "Not live yet"
+wishlist: "Wishlist available"
+live: "Live"
+sold_out: "Sold out"</code></pre>
+  </section>
+
+  <section id="seo">
+    <h2>8. SEO 设计</h2>
+
+    <h3>8.1 首页 SEO</h3>
+    <pre><code>Title:
+GTA 6 Countdown, Price & Pre-order Tracker
+
+Meta Description:
+Track the GTA 6 release countdown, official price status, pre-order availability, platforms, editions and historical GTA data in one unofficial fan-made tracker.</code></pre>
+
+    <h3>8.2 价格页 SEO</h3>
+    <pre><code>Title:
+GTA 6 Price Tracker: Official Price, Editions and Platform Status
+
+Meta Description:
+Is the GTA 6 price officially announced? Track GTA 6 prices, editions, platform availability and regional price updates in this unofficial tracker.</code></pre>
+
+    <h3>8.3 预购页 SEO</h3>
+    <pre><code>Title:
+GTA 6 Pre-order Tracker: Is GTA 6 Available to Pre-order?
+
+Meta Description:
+Check whether GTA 6 pre-orders are live on PlayStation Store, Xbox Store, Amazon, Best Buy and other retailers. Updated unofficial tracker.</code></pre>
+
+    <h3>8.4 倒计时页 SEO</h3>
+    <pre><code>Title:
+GTA 6 Countdown: How Many Days Until GTA 6 Releases?
+
+Meta Description:
+See the live GTA 6 release countdown and find out how many days, hours and minutes are left until Grand Theft Auto VI launches.</code></pre>
+
+    <h3>8.5 历史数据页 SEO</h3>
+    <pre><code>Title:
+GTA Release Timeline: From GTA III to GTA VI
+
+Meta Description:
+Explore the GTA release timeline, the gap between GTA V and GTA VI, historical platforms, scores and key series data visualizations.</code></pre>
+
+    <h3>8.6 FAQ 关键词覆盖</h3>
+    <ul>
+      <li>When is GTA 6 coming out?</li>
+      <li>How much will GTA 6 cost?</li>
+      <li>Is GTA 6 available for pre-order?</li>
+      <li>Will GTA 6 be on PC?</li>
+      <li>Will GTA 6 cost $100?</li>
+      <li>What platforms will GTA 6 be on?</li>
+      <li>How many days until GTA 6?</li>
+    </ul>
+
+    <h3>8.7 结构化数据</h3>
+    <p>建议实现：</p>
+    <ul>
+      <li>FAQPage Schema。</li>
+      <li>BreadcrumbList Schema。</li>
+      <li>VideoGame Schema 可选，但需要谨慎填写，只填确定信息。</li>
+      <li>WebSite Schema。</li>
+    </ul>
+
+    <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When is GTA 6 coming out?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GTA 6 is officially set to release on November 19, 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the GTA 6 price officially announced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The official GTA 6 price has not been announced yet."
+      }
+    }
+  ]
+}</code></pre>
+
+    <h3>8.8 SEO 注意事项</h3>
+    <ul>
+      <li>不要制造虚假价格。</li>
+      <li>每个页面都要有 Last updated。</li>
+      <li>价格/预购页面需要明确区分 official、placeholder、rumor。</li>
+      <li>图表必须配对应文字表格，避免搜索引擎读不到核心内容。</li>
+      <li>站点上线后立即提交 Google Search Console 和 Bing Webmaster Tools。</li>
+      <li>生成 sitemap.xml 和 robots.txt。</li>
+    </ul>
+  </section>
+
+  <section id="monetization">
+    <h2>9. 变现设计</h2>
+
+    <h3>9.1 第一阶段：先不强插广告</h3>
+    <p>
+      MVP 阶段优先让页面被收录，提升加载速度和用户体验。广告位先预留，不要一开始堆广告。
+    </p>
+
+    <h3>9.2 Affiliate</h3>
+    <ul>
+      <li>游戏主机：PS5、Xbox Series X|S。</li>
+      <li>配件：手柄、耳机、游戏显示器、SSD、充电座。</li>
+      <li>游戏周边：官方授权商品。</li>
+      <li>实体游戏盘：等可靠预购链接出现后再放。</li>
+    </ul>
+
+    <h3>9.3 展示广告</h3>
+    <ul>
+      <li>流量起来后可接 Google AdSense。</li>
+      <li>广告位置建议：文章内容中段、FAQ 前、页面底部。</li>
+      <li>不要遮挡核心倒计时和价格表。</li>
+    </ul>
+
+    <h3>9.4 邮件列表</h3>
+    <p>
+      邮件提醒是本站最有价值的沉淀方式。推荐表单文案：
+    </p>
+    <pre><code>Get notified when GTA 6 pre-orders go live.
+No spam. Only major GTA 6 price and pre-order updates.</code></pre>
+  </section>
+
+  <section id="tech">
+    <h2>10. 技术实现建议</h2>
+
+    <h3>10.1 推荐技术栈</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>方案</th>
+          <th>推荐程度</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Astro + Tailwind + JSON</td>
+          <td>最高</td>
+          <td>适合静态 SEO 站，速度快，部署简单</td>
+        </tr>
+        <tr>
+          <td>Next.js + Tailwind</td>
+          <td>高</td>
+          <td>适合后续扩展后端、API、邮件、数据库</td>
+        </tr>
+        <tr>
+          <td>Vite + React</td>
+          <td>中</td>
+          <td>做单页应用快，但 SEO 不如 Astro/Next 静态页</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>建议：</strong>第一版用 Astro。原因：SEO 友好、构建快、静态部署简单、适合 Cloudflare Pages。</p>
+
+    <h3>10.2 部署</h3>
+    <ul>
+      <li>代码托管：GitHub。</li>
+      <li>部署平台：Cloudflare Pages。</li>
+      <li>域名：避免强商标风险，不建议使用 official、rockstar、take-two 等词。</li>
+      <li>分析：Cloudflare Web Analytics + Google Search Console + Bing Webmaster Tools。</li>
+    </ul>
+
+    <h3>10.3 性能要求</h3>
+    <ul>
+      <li>首页 Lighthouse Performance 90+。</li>
+      <li>首屏加载小于 2 秒。</li>
+      <li>图片尽量不用大图，MVP 可不用图片。</li>
+      <li>核心信息使用 HTML 文本，不要全部放在 Canvas 或图片里。</li>
+    </ul>
+  </section>
+
+  <section id="tasks">
+    <h2>11. 开发任务拆解</h2>
+
+    <h3>11.1 Phase 1：基础项目</h3>
+    <ol>
+      <li>创建 Astro 项目。</li>
+      <li>接入 Tailwind CSS。</li>
+      <li>建立基础布局：Header、Footer、MainLayout。</li>
+      <li>创建 data JSON 文件。</li>
+      <li>创建首页和 5 个基础页面。</li>
+    </ol>
+
+    <h3>11.2 Phase 2：核心组件</h3>
+    <ol>
+      <li>实现 CountdownTimer。</li>
+      <li>实现 StatusCard。</li>
+      <li>实现 PriceTable。</li>
+      <li>实现 PreorderTable。</li>
+      <li>实现 UpdateTimeline。</li>
+      <li>实现 FAQSection。</li>
+      <li>实现 Disclaimer。</li>
+    </ol>
+
+    <h3>11.3 Phase 3：数据可视化</h3>
+    <ol>
+      <li>实现 GTA Release Timeline。</li>
+      <li>实现 Release Gap Chart。</li>
+      <li>实现平台历史表格。</li>
+      <li>保证图表下方有 HTML 表格版本。</li>
+    </ol>
+
+    <h3>11.4 Phase 4：SEO</h3>
+    <ol>
+      <li>为每个页面设置 title 和 meta description。</li>
+      <li>添加 canonical。</li>
+      <li>添加 Open Graph 和 Twitter Card。</li>
+      <li>添加 FAQ Schema。</li>
+      <li>生成 sitemap.xml。</li>
+      <li>生成 robots.txt。</li>
+    </ol>
+
+    <h3>11.5 Phase 5：上线</h3>
+    <ol>
+      <li>部署到 Cloudflare Pages。</li>
+      <li>绑定域名。</li>
+      <li>提交 Google Search Console。</li>
+      <li>提交 Bing Webmaster Tools。</li>
+      <li>提交 sitemap。</li>
+      <li>检查移动端、桌面端、SEO 标题和结构化数据。</li>
+    </ol>
+  </section>
+
+  <section id="acceptance">
+    <h2>12. 验收标准</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>验收要求</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>页面数量</td>
+          <td>至少完成首页、价格页、预购页、倒计时页、历史数据页、关于页</td>
+        </tr>
+        <tr>
+          <td>倒计时</td>
+          <td>能实时倒计时到 2026-11-19，发售后状态自动变化</td>
+        </tr>
+        <tr>
+          <td>价格表</td>
+          <td>未公布价格必须显示 Not officially announced，不得显示传闻价格为事实</td>
+        </tr>
+        <tr>
+          <td>预购表</td>
+          <td>展示各平台状态，并显示最后检查日期</td>
+        </tr>
+        <tr>
+          <td>历史数据</td>
+          <td>至少有 GTA 主要作品发售时间线和作品间隔图表</td>
+        </tr>
+        <tr>
+          <td>SEO</td>
+          <td>每个页面有独立 title、description、canonical、FAQ schema</td>
+        </tr>
+        <tr>
+          <td>性能</td>
+          <td>Lighthouse Performance 90+，移动端可用</td>
+        </tr>
+        <tr>
+          <td>合规</td>
+          <td>全站页脚和 About 页面包含非官方免责声明</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>最终开发目标：</strong>
+      用最短时间上线一个英文 SEO 数据站，先抢收录，再根据 Search Console 中出现的真实关键词扩展页面。
+      第一版不要追求复杂，要追求“能上线、能收录、能更新、能扩展”。
+    </div>
+  </section>
+
+  <section>
+    <h2>13. 给 Agent 的最终指令</h2>
+    <pre><code>请根据本设计文档开发一个英文静态 SEO 网站，主题为 GTA 6 Price & Countdown Tracker。
+
+要求：
+1. 使用 Astro + Tailwind CSS。
+2. 使用本地 JSON 文件维护数据。
+3. 完成以下页面：
+   - /
+   - /gta-6-price
+   - /gta-6-preorder
+   - /gta-6-countdown
+   - /gta-6-history
+   - /about
+4. 所有价格和预购信息必须区分官方确认、平台占位、传闻和未公布。
+5. 当前价格统一显示 Not officially announced。
+6. 当前发售日期使用 November 19, 2026。
+7. 首页必须包含倒计时、价格状态、预购状态、平台状态、FAQ、免责声明。
+8. 历史页必须包含 GTA 系列发售时间线和作品间隔可视化。
+9. 每个页面必须做好 SEO title、description、canonical、Open Graph、FAQ schema。
+10. 生成 sitemap.xml 和 robots.txt。
+11. 不使用 Rockstar 官方 Logo，不使用未授权图片。
+12. 全站明确标注：This is an unofficial fan-made tracker and is not affiliated with Rockstar Games or Take-Two Interactive.</code></pre>
+  </section>
+</main>
+</body>
+</html>

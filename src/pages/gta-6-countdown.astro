@@ -1,0 +1,39 @@
+---
+import CountdownTimer from '../components/CountdownTimer.astro';
+import FAQSection from '../components/FAQSection.astro';
+import StatusCards from '../components/StatusCards.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const title = 'GTA 6 Countdown: How Many Days Until GTA 6 Releases?';
+const description = 'See the live GTA 6 release countdown and find out how many days, hours and minutes are left until Grand Theft Auto VI launches.';
+---
+
+<MainLayout title={title} description={description} pathname="/gta-6-countdown">
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-mint">Live countdown</p>
+    <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">How many days until GTA 6 releases?</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-zinc-300">
+      The countdown targets November 19, 2026. Regional unlock times can differ, so the date card remains separate from platform-specific availability.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-7xl space-y-8 px-4 pb-14 sm:px-6">
+    <CountdownTimer />
+    <StatusCards />
+    <div class="grid gap-5 md:grid-cols-3">
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">Local timezone</h2>
+        <p class="mt-3 text-zinc-300">The timer uses your browser's clock for the visible countdown.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">Platform status</h2>
+        <p class="mt-3 text-zinc-300">PS5 and Xbox Series X|S are listed for launch. PC is not officially announced for launch.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">Delay tracking</h2>
+        <p class="mt-3 text-zinc-300">Any future official date change should update the JSON source and every countdown page automatically.</p>
+      </article>
+    </div>
+    <FAQSection limit={5} />
+  </section>
+</MainLayout>

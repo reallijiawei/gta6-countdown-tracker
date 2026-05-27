@@ -1,0 +1,42 @@
+{
+  "lastChecked": "2026-05-27",
+  "overallStatus": "ok",
+  "note": "Tracked official sources were reachable and expected public signals were present.",
+  "sources": [
+    {
+      "id": "rockstar-gta-vi",
+      "label": "Rockstar GTA VI official page",
+      "url": "https://www.rockstargames.com/VI",
+      "ok": true,
+      "status": 200,
+      "matchedSignals": [
+        "PlayStation 5",
+        "Xbox Series X|S"
+      ],
+      "missingSignals": [],
+      "checkedAt": "2026-05-27T02:11:26.101Z"
+    },
+    {
+      "id": "rockstar-gta-vi-release-date",
+      "label": "Rockstar Newswire release date article",
+      "url": "https://www.rockstargames.com/newswire/article/ak3ak31a49a221/grand-theft-auto-vi-is-now-set-to-launch-november-19-2026",
+      "ok": true,
+      "status": 200,
+      "matchedSignals": [
+        "November 19, 2026"
+      ],
+      "missingSignals": [],
+      "checkedAt": "2026-05-27T02:11:26.101Z"
+    },
+    {
+      "id": "playstation-store-gta-vi",
+      "label": "PlayStation Store GTA VI page",
+      "url": "https://store.playstation.com/concept/10000730",
+      "ok": true,
+      "status": 200,
+      "matchedSignals": [],
+      "missingSignals": [],
+      "checkedAt": "2026-05-27T02:11:26.101Z"
+    }
+  ]
+}

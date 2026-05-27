@@ -1,0 +1,38 @@
+---
+import FAQSection from '../components/FAQSection.astro';
+import PreorderTable from '../components/PreorderTable.astro';
+import StatusPill from '../components/StatusPill.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const title = 'GTA 6 Pre-order Tracker: Is GTA 6 Available to Pre-order?';
+const description = 'Check whether GTA 6 pre-orders are live on PlayStation Store, Xbox Store, Amazon, Best Buy and other retailers. Updated unofficial tracker.';
+---
+
+<MainLayout title={title} description={description} pathname="/gta-6-preorder">
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-cyan">Pre-order status</p>
+    <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">GTA 6 pre-orders are not officially live yet.</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-zinc-300">
+      Wishlist pages are useful signals, but they are not live pre-orders. This tracker keeps stores, regions and platform notes separate so placeholder activity is not mistaken for official availability.
+    </p>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <StatusPill status="not_live" />
+      <StatusPill status="wishlist" />
+      <StatusPill status="placeholder" />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl space-y-8 px-4 pb-14 sm:px-6">
+    <PreorderTable />
+    <div class="surface rounded-lg p-6">
+      <h2 class="font-display text-3xl font-black text-white">Get notified when pre-orders go live</h2>
+      <form class="mt-5 grid gap-3 sm:grid-cols-[1fr_auto]">
+        <label class="sr-only" for="email">Email address</label>
+        <input id="email" class="min-h-12 rounded-md border border-white/10 bg-black/30 px-4 text-white outline-none transition placeholder:text-zinc-500 focus:border-mint" type="email" placeholder="you@example.com" />
+        <button class="rounded-md bg-mint px-5 py-3 font-bold text-black transition hover:bg-white" type="button">Notify me</button>
+      </form>
+      <p class="mt-3 text-sm text-zinc-400">Form UI only for MVP. No spam. Only major GTA 6 price and pre-order updates.</p>
+    </div>
+    <FAQSection limit={5} />
+  </section>
+</MainLayout>

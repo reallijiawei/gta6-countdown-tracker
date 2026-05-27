@@ -1,0 +1,11 @@
+---
+import { labelFor, toneFor } from '../lib/status';
+
+interface Props {
+  status: string;
+}
+
+const { status } = Astro.props;
+---
+
+<span class={`status-pill ${toneFor(status)}`}>{labelFor(status)}</span>

@@ -1,0 +1,33 @@
+---
+import preorders from '../data/preorders.json';
+import StatusPill from './StatusPill.astro';
+---
+
+<div class="surface overflow-x-auto rounded-lg">
+  <table>
+    <thead>
+      <tr>
+        <th>Store</th>
+        <th>Platform</th>
+        <th>Region</th>
+        <th>Status</th>
+        <th>Note</th>
+        <th>Last checked</th>
+      </tr>
+    </thead>
+    <tbody>
+      {preorders.map((row) => (
+        <tr>
+          <td class="font-bold text-white">
+            {row.url ? <a class="underline decoration-white/30 underline-offset-4 hover:text-mint" href={row.url}>{row.store}</a> : row.store}
+          </td>
+          <td>{row.platform}</td>
+          <td>{row.region}</td>
+          <td><StatusPill status={row.status} /></td>
+          <td>{row.note}</td>
+          <td>{row.lastChecked}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,68 @@
+[
+  {
+    "region": "US",
+    "currency": "USD",
+    "platform": "PS5",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Rockstar Games",
+    "sourceUrl": "https://www.rockstargames.com/VI",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "region": "US",
+    "currency": "USD",
+    "platform": "Xbox Series X|S",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Xbox Store",
+    "sourceUrl": "",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "region": "UK",
+    "currency": "GBP",
+    "platform": "PS5 / Xbox",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Platform stores",
+    "sourceUrl": "",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "region": "EU",
+    "currency": "EUR",
+    "platform": "PS5 / Xbox",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Platform stores",
+    "sourceUrl": "",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "region": "Canada",
+    "currency": "CAD",
+    "platform": "PS5 / Xbox",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Platform stores",
+    "sourceUrl": "",
+    "lastChecked": "2026-05-27"
+  },
+  {
+    "region": "Australia",
+    "currency": "AUD",
+    "platform": "PS5 / Xbox",
+    "edition": "Standard Edition",
+    "price": null,
+    "status": "not_officially_announced",
+    "sourceName": "Platform stores",
+    "sourceUrl": "",
+    "lastChecked": "2026-05-27"
+  }
+]

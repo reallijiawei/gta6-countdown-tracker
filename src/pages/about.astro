@@ -1,0 +1,42 @@
+---
+import Disclaimer from '../components/Disclaimer.astro';
+import SourceFreshness from '../components/SourceFreshness.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const title = 'About This Unofficial GTA 6 Tracker';
+const description = 'Learn how this unofficial GTA 6 tracker handles sources, prices, pre-order status, historical data and fan-made compliance boundaries.';
+---
+
+<MainLayout title={title} description={description} pathname="/about">
+  <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+    <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-mint">About</p>
+    <h1 class="mt-4 font-display text-5xl font-black leading-tight text-white">A fan-made GTA 6 data tracker, not a news rumor mill.</h1>
+    <div class="prose-lite mt-6 space-y-5 text-lg">
+      <p>
+        This site is built to answer repeat search questions quickly: release date, countdown, official price status, pre-order availability, platform status and historical GTA release data.
+      </p>
+      <p>
+        It avoids treating rumors as facts. Prices remain marked as not officially announced until Rockstar Games or official platform stores publish confirmed details.
+      </p>
+      <p>
+        The first version uses local JSON files for maintainable static deployment. That makes each status easy to audit and update without a heavy backend.
+      </p>
+    </div>
+    <div class="mt-8">
+      <Disclaimer />
+    </div>
+    <div class="mt-8">
+      <SourceFreshness />
+    </div>
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">Source policy</h2>
+        <p class="mt-3 text-zinc-300">Official pages, platform store pages and clearly labeled internal updates are preferred. Retail placeholders and forum claims must stay labeled.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">Compliance policy</h2>
+        <p class="mt-3 text-zinc-300">No official logos, unauthorized screenshots, leaked content, downloads, cheats, account sales or CD key gray-market routing.</p>
+      </article>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-05-27",
+    "title": "Daily source check completed",
+    "type": "source_check",
+    "summary": "Tracked official sources were reachable and expected public signals remained present.",
+    "sourceName": "Daily source checker",
+    "sourceUrl": ""
+  },
+  {
+    "date": "2026-05-26",
+    "title": "Tracker initialized",
+    "type": "site_update",
+    "summary": "The tracker shows release date, price status, pre-order status and platform status.",
+    "sourceName": "Internal update",
+    "sourceUrl": ""
+  },
+  {
+    "date": "2026-05-26",
+    "title": "Official GTA VI page checked",
+    "type": "official",
+    "summary": "Rockstar's official GTA VI page lists November 19, 2026 and PlayStation 5 / Xbox Series X|S.",
+    "sourceName": "Rockstar Games",
+    "sourceUrl": "https://www.rockstargames.com/VI"
+  }
+]

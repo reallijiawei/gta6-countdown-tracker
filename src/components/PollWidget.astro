@@ -1,0 +1,41 @@
+---
+const priceOptions = [
+  { label: '$69.99', value: 28 },
+  { label: '$79.99', value: 34 },
+  { label: '$89.99', value: 21 },
+  { label: '$99.99+', value: 17 },
+];
+
+const platforms = [
+  { label: 'PlayStation 5', value: 46 },
+  { label: 'Xbox Series X|S', value: 31 },
+  { label: 'Waiting for PC', value: 23 },
+];
+---
+
+<section class="grid gap-4 lg:grid-cols-2">
+  <div class="surface rounded-lg p-6">
+    <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-mint">Community pulse</p>
+    <h2 class="mt-2 font-display text-2xl font-black text-white">What do you think GTA 6 will cost?</h2>
+    <div class="mt-5 space-y-3">
+      {priceOptions.map((option) => (
+        <button class="w-full rounded-md border border-white/10 bg-white/[0.04] p-3 text-left transition hover:border-mint/60 hover:bg-mint/10" type="button">
+          <span class="flex justify-between text-sm font-bold text-white"><span>{option.label}</span><span>{option.value}%</span></span>
+          <span class="mt-2 block h-2 rounded-full bg-white/10"><span class="block h-full rounded-full bg-mint" style={`width:${option.value}%`}></span></span>
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="surface rounded-lg p-6">
+    <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-cyan">Platform vote</p>
+    <h2 class="mt-2 font-display text-2xl font-black text-white">Which platform will you play on?</h2>
+    <div class="mt-5 space-y-3">
+      {platforms.map((option) => (
+        <button class="w-full rounded-md border border-white/10 bg-white/[0.04] p-3 text-left transition hover:border-cyan/60 hover:bg-cyan/10" type="button">
+          <span class="flex justify-between text-sm font-bold text-white"><span>{option.label}</span><span>{option.value}%</span></span>
+          <span class="mt-2 block h-2 rounded-full bg-white/10"><span class="block h-full rounded-full bg-cyan" style={`width:${option.value}%`}></span></span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>

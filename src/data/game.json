@@ -1,0 +1,26 @@
+{
+  "slug": "gta-6",
+  "title": "Grand Theft Auto VI",
+  "shortTitle": "GTA 6",
+  "releaseDate": "2026-11-19T00:00:00Z",
+  "officialReleaseDateText": "November 19, 2026",
+  "developer": "Rockstar Games",
+  "publisher": "Rockstar Games",
+  "platforms": [
+    {
+      "name": "PlayStation 5",
+      "status": "announced"
+    },
+    {
+      "name": "Xbox Series X|S",
+      "status": "announced"
+    },
+    {
+      "name": "PC",
+      "status": "not_officially_announced"
+    }
+  ],
+  "officialPriceStatus": "not_officially_announced",
+  "preorderStatus": "not_live",
+  "lastUpdated": "2026-05-27"
+}

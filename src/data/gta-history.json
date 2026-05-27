@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Grand Theft Auto III",
+    "releaseYear": 2001,
+    "releaseDate": "2001-10-22",
+    "initialPlatforms": ["PlayStation 2"],
+    "metacritic": 97,
+    "notes": "Main 3D-era breakthrough"
+  },
+  {
+    "title": "Grand Theft Auto: Vice City",
+    "releaseYear": 2002,
+    "releaseDate": "2002-10-27",
+    "initialPlatforms": ["PlayStation 2"],
+    "metacritic": 95,
+    "notes": "Vice City setting"
+  },
+  {
+    "title": "Grand Theft Auto: San Andreas",
+    "releaseYear": 2004,
+    "releaseDate": "2004-10-26",
+    "initialPlatforms": ["PlayStation 2"],
+    "metacritic": 95,
+    "notes": "Large open world"
+  },
+  {
+    "title": "Grand Theft Auto IV",
+    "releaseYear": 2008,
+    "releaseDate": "2008-04-29",
+    "initialPlatforms": ["PlayStation 3", "Xbox 360"],
+    "metacritic": 98,
+    "notes": "HD-era launch"
+  },
+  {
+    "title": "Grand Theft Auto V",
+    "releaseYear": 2013,
+    "releaseDate": "2013-09-17",
+    "initialPlatforms": ["PlayStation 3", "Xbox 360"],
+    "metacritic": 97,
+    "notes": "Long-running GTA Online ecosystem"
+  },
+  {
+    "title": "Grand Theft Auto VI",
+    "releaseYear": 2026,
+    "releaseDate": "2026-11-19",
+    "initialPlatforms": ["PlayStation 5", "Xbox Series X|S"],
+    "metacritic": null,
+    "notes": "Upcoming"
+  }
+]

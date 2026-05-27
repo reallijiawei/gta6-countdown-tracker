@@ -1,0 +1,23 @@
+---
+import FAQSection from '../components/FAQSection.astro';
+import HistoryCharts from '../components/HistoryCharts.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const title = 'GTA Release Timeline: From GTA III to GTA VI';
+const description = 'Explore the GTA release timeline, the gap between GTA V and GTA VI, historical platforms, scores and key series data visualizations.';
+---
+
+<MainLayout title={title} description={description} pathname="/gta-6-history">
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-cyan">Series data</p>
+    <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">GTA release timeline from GTA III to GTA VI.</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-zinc-300">
+      The history page gives the site evergreen value beyond day-to-day rumors: release dates, initial platforms, review scores and the unusually long GTA V to GTA VI wait.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-7xl space-y-8 px-4 pb-14 sm:px-6">
+    <HistoryCharts />
+    <FAQSection limit={4} />
+  </section>
+</MainLayout>

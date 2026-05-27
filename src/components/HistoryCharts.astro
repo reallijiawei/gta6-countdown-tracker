@@ -1,0 +1,73 @@
+---
+import history from '../data/gta-history.json';
+
+const releases = history.map((item, index) => {
+  const previous = index === 0 ? null : history[index - 1];
+  return {
+    ...item,
+    gap: previous ? item.releaseYear - previous.releaseYear : 0,
+  };
+});
+
+const maxGap = Math.max(...releases.map((item) => item.gap));
+---
+
+<section class="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+  <div class="surface rounded-lg p-6">
+    <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-mint">Release timeline</p>
+    <div class="mt-6 space-y-5">
+      {releases.map((item) => (
+        <div class="grid grid-cols-[4.5rem_1fr] gap-4">
+          <div class="font-display text-2xl font-black text-white">{item.releaseYear}</div>
+          <div class="border-l border-white/15 pb-2 pl-4">
+            <h3 class="font-display text-lg font-black text-white">{item.title}</h3>
+            <p class="text-sm text-zinc-400">{item.releaseDate} · {item.initialPlatforms.join(', ')}</p>
+            <p class="mt-1 text-sm text-zinc-300">{item.notes}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="surface rounded-lg p-6">
+    <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-cyan">Gap chart</p>
+    <h2 class="mt-2 font-display text-2xl font-black text-white">Years between major releases</h2>
+    <div class="mt-5 space-y-4">
+      {releases.slice(1).map((item) => (
+        <div>
+          <div class="mb-1 flex justify-between gap-3 text-sm">
+            <span class="font-bold text-white">{item.title.replace('Grand Theft Auto', 'GTA')}</span>
+            <span class="text-zinc-400">{item.gap} years</span>
+          </div>
+          <div class="h-3 rounded-full bg-white/10">
+            <div class="h-full rounded-full bg-gradient-to-r from-mint to-cyan" style={`width:${(item.gap / maxGap) * 100}%`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<div class="surface mt-5 overflow-x-auto rounded-lg">
+  <table>
+    <thead>
+      <tr>
+        <th>Game</th>
+        <th>Release date</th>
+        <th>Initial platforms</th>
+        <th>Metacritic</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {history.map((item) => (
+        <tr>
+          <td class="font-bold text-white">{item.title}</td>
+          <td>{item.releaseDate}</td>
+          <td>{item.initialPlatforms.join(', ')}</td>
+          <td>{item.metacritic ?? 'Not released'}</td>
+          <td>{item.notes}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
