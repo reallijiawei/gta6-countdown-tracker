@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gta6countdown.example.com/sitemap.xml
+Sitemap: https://gta6-countdown-tracker.pages.dev/sitemap.xml
