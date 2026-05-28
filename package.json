@@ -8,6 +8,7 @@
     "build": "astro check && astro build",
     "check:sources": "node scripts/check-sources.mjs",
     "deploy:cloudflare": "wrangler pages deploy dist --project-name gta6-countdown-tracker",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "test": "node --test scripts/*.test.mjs",
     "preview": "astro preview --host 127.0.0.1",
     "serve:dist": "node scripts/serve-static.mjs"
