@@ -26,6 +26,7 @@ Recommended settings:
 - Build command: `npm run build`
 - Build output directory: `dist`
 - Node.js version: `24`
+- Optional GA4 environment variable: `PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX`
 
 Deploy with Wrangler:
 

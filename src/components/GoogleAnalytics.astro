@@ -1,0 +1,18 @@
+---
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const isGa4Id = typeof measurementId === 'string' && /^G-[A-Z0-9]+$/i.test(measurementId);
+---
+
+{isGa4Id && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <script is:inline define:vars={{ measurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', measurementId);
+    </script>
+  </>
+)}

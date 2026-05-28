@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { canonical, faqSchema, siteName, websiteSchema } from '../lib/seo';
 import Disclaimer from '../components/Disclaimer.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import game from '../data/game.json';
 
 interface Props {
@@ -42,6 +43,7 @@ const nav = [
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <GoogleAnalytics />
     {jsonLd.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
   </head>
   <body>
