@@ -33,7 +33,7 @@ const server = createServer((request, response) => {
     request.on('data', (chunk) => chunks.push(chunk));
     request.on('end', async () => {
       try {
-        const upstream = await fetch('https://gta6-countdown-tracker.pages.dev/api/polls', {
+        const upstream = await fetch('https://launchdaytracker.online/api/polls', {
           method: request.method,
           headers: {
             'content-type': request.headers['content-type'] || 'application/json',

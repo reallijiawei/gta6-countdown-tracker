@@ -1,7 +1,7 @@
 import faqs from '../data/faqs.json';
 
 export const siteName = 'GTA 6 Price & Countdown Tracker';
-export const baseUrl = 'https://gta6-countdown-tracker.pages.dev';
+export const baseUrl = 'https://launchdaytracker.online';
 
 export function canonical(pathname: string) {
   const path = pathname === '/' ? '' : pathname;
