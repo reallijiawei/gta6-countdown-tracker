@@ -1,5 +1,5 @@
 ---
-const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-1C8SG3916F';
 const isGa4Id = typeof measurementId === 'string' && /^G-[A-Z0-9]+$/i.test(measurementId);
 ---
 
