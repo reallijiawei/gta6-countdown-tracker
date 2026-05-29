@@ -3,12 +3,21 @@ import FAQSection from '../components/FAQSection.astro';
 import PreorderTable from '../components/PreorderTable.astro';
 import StatusPill from '../components/StatusPill.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { breadcrumbSchema, faqItems, faqSchema, videoGameSchema } from '../lib/seo';
 
 const title = 'GTA 6 Pre-order Tracker: Is GTA 6 Available to Pre-order?';
 const description = 'Check whether GTA 6 pre-orders are live on PlayStation Store, Xbox Store, Amazon, Best Buy and other retailers. Updated unofficial tracker.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'Pre-order', pathname: '/gta-6-preorder' },
+  ]),
+  videoGameSchema(),
+  faqSchema(faqItems(5)),
+];
 ---
 
-<MainLayout title={title} description={description} pathname="/gta-6-preorder">
+<MainLayout title={title} description={description} pathname="/gta-6-preorder" schema={schema}>
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
     <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-cyan">Pre-order status</p>
     <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">GTA 6 pre-orders are not officially live yet.</h1>

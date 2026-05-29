@@ -2,12 +2,20 @@
 import Disclaimer from '../components/Disclaimer.astro';
 import SourceFreshness from '../components/SourceFreshness.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { breadcrumbSchema, videoGameSchema } from '../lib/seo';
 
 const title = 'About This Unofficial GTA 6 Tracker';
 const description = 'Learn how this unofficial GTA 6 tracker handles sources, prices, pre-order status, historical data and fan-made compliance boundaries.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'About', pathname: '/about' },
+  ]),
+  videoGameSchema(),
+];
 ---
 
-<MainLayout title={title} description={description} pathname="/about">
+<MainLayout title={title} description={description} pathname="/about" schema={schema}>
   <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
     <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-mint">About</p>
     <h1 class="mt-4 font-display text-5xl font-black leading-tight text-white">A fan-made GTA 6 data tracker, not a news rumor mill.</h1>

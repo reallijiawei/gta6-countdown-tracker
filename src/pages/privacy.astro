@@ -1,11 +1,19 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { breadcrumbSchema, videoGameSchema } from '../lib/seo';
 
 const title = 'Privacy Policy | GTA 6 Price & Countdown Tracker';
 const description = 'Privacy policy for the unofficial GTA 6 Price & Countdown Tracker, including poll storage, browser storage and source freshness checks.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'Privacy', pathname: '/privacy' },
+  ]),
+  videoGameSchema(),
+];
 ---
 
-<MainLayout title={title} description={description} pathname="/privacy">
+<MainLayout title={title} description={description} pathname="/privacy" schema={schema}>
   <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
     <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-cyan">Privacy</p>
     <h1 class="mt-4 font-display text-5xl font-black leading-tight text-white">Privacy policy</h1>

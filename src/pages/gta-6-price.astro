@@ -3,12 +3,21 @@ import FAQSection from '../components/FAQSection.astro';
 import PriceTable from '../components/PriceTable.astro';
 import StatusPill from '../components/StatusPill.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { breadcrumbSchema, faqItems, faqSchema, videoGameSchema } from '../lib/seo';
 
 const title = 'GTA 6 Price Tracker: Official Price, Editions and Platform Status';
 const description = 'Is the GTA 6 price officially announced? Track GTA 6 prices, editions, platform availability and regional price updates in this unofficial tracker.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'Price', pathname: '/gta-6-price' },
+  ]),
+  videoGameSchema(),
+  faqSchema(faqItems(5)),
+];
 ---
 
-<MainLayout title={title} description={description} pathname="/gta-6-price">
+<MainLayout title={title} description={description} pathname="/gta-6-price" schema={schema}>
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
     <div class="max-w-3xl">
       <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-amber">Price status</p>

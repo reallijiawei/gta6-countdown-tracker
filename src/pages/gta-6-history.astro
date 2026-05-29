@@ -2,12 +2,21 @@
 import FAQSection from '../components/FAQSection.astro';
 import HistoryCharts from '../components/HistoryCharts.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { breadcrumbSchema, faqItems, faqSchema, videoGameSchema } from '../lib/seo';
 
 const title = 'GTA Release Timeline: From GTA III to GTA VI';
 const description = 'Explore the GTA release timeline, the gap between GTA V and GTA VI, historical platforms, scores and key series data visualizations.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'History', pathname: '/gta-6-history' },
+  ]),
+  videoGameSchema(),
+  faqSchema(faqItems(4)),
+];
 ---
 
-<MainLayout title={title} description={description} pathname="/gta-6-history">
+<MainLayout title={title} description={description} pathname="/gta-6-history" schema={schema}>
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
     <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-cyan">Series data</p>
     <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">GTA release timeline from GTA III to GTA VI.</h1>

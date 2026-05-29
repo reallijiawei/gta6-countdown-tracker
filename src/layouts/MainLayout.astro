@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { canonical, faqSchema, siteName, websiteSchema } from '../lib/seo';
+import { canonical, siteName, socialImageUrl, websiteSchema } from '../lib/seo';
 import Disclaimer from '../components/Disclaimer.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import game from '../data/game.json';
@@ -14,7 +14,8 @@ interface Props {
 
 const { title, description, pathname, schema = [] } = Astro.props;
 const url = canonical(pathname);
-const jsonLd = [websiteSchema(), faqSchema(), ...schema];
+const jsonLd = [websiteSchema(), ...schema];
+const socialImage = socialImageUrl(pathname);
 
 const nav = [
   ['/', 'Home'],
@@ -34,15 +35,21 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <link rel="canonical" href={url} />
+    <meta name="theme-color" content="#07070a" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="GTA 6 tracker snapshot" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
     <GoogleAnalytics />
     {jsonLd.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
   </head>

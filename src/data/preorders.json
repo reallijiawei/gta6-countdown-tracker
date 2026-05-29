@@ -6,7 +6,7 @@
     "status": "wishlist",
     "url": "https://store.playstation.com/concept/10000730",
     "note": "Wishlist is available; pre-order is not live.",
-    "lastChecked": "2026-05-28"
+    "lastChecked": "2026-05-29"
   },
   {
     "store": "Xbox Store",
@@ -15,7 +15,7 @@
     "status": "wishlist",
     "url": "",
     "note": "Official page may support wishlist, but no pre-order is confirmed.",
-    "lastChecked": "2026-05-28"
+    "lastChecked": "2026-05-29"
   },
   {
     "store": "Amazon",
@@ -24,7 +24,7 @@
     "status": "not_live",
     "url": "",
     "note": "No reliable listing is linked until an official retail page is confirmed.",
-    "lastChecked": "2026-05-28"
+    "lastChecked": "2026-05-29"
   },
   {
     "store": "Best Buy",
@@ -33,7 +33,7 @@
     "status": "not_live",
     "url": "",
     "note": "Rumors are not treated as official availability.",
-    "lastChecked": "2026-05-28"
+    "lastChecked": "2026-05-29"
   },
   {
     "store": "GameStop",
@@ -42,6 +42,6 @@
     "status": "not_live",
     "url": "",
     "note": "No official pre-order confirmed.",
-    "lastChecked": "2026-05-28"
+    "lastChecked": "2026-05-29"
   }
 ]

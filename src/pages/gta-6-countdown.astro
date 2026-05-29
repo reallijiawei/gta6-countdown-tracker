@@ -3,12 +3,21 @@ import CountdownTimer from '../components/CountdownTimer.astro';
 import FAQSection from '../components/FAQSection.astro';
 import StatusCards from '../components/StatusCards.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { breadcrumbSchema, faqItems, faqSchema, videoGameSchema } from '../lib/seo';
 
 const title = 'GTA 6 Countdown: How Many Days Until GTA 6 Releases?';
 const description = 'See the live GTA 6 release countdown and find out how many days, hours and minutes are left until Grand Theft Auto VI launches.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'Countdown', pathname: '/gta-6-countdown' },
+  ]),
+  videoGameSchema(),
+  faqSchema(faqItems(5)),
+];
 ---
 
-<MainLayout title={title} description={description} pathname="/gta-6-countdown">
+<MainLayout title={title} description={description} pathname="/gta-6-countdown" schema={schema}>
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
     <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-mint">Live countdown</p>
     <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">How many days until GTA 6 releases?</h1>

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "astro check && astro build",
+    "build": "node scripts/update-sitemap.mjs && astro check && astro build",
     "check:sources": "node scripts/check-sources.mjs",
     "deploy:cloudflare": "wrangler pages deploy dist --project-name gta6-countdown-tracker",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
