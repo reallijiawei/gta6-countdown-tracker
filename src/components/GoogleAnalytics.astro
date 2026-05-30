@@ -5,14 +5,60 @@ const isGa4Id = typeof measurementId === 'string' && /^G-[A-Z0-9]+$/i.test(measu
 
 {isGa4Id && (
   <>
-    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
     <script is:inline define:vars={{ measurementId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+      const consentKey = 'gta6-analytics-consent';
+
+      function loadAnalytics() {
+        if (window.__gta6AnalyticsLoaded) return;
+        window.__gta6AnalyticsLoaded = true;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+
+        const tag = document.createElement('script');
+        tag.async = true;
+        tag.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(tag);
+
+        window.gtag('js', new Date());
+        window.gtag('config', measurementId);
       }
-      gtag('js', new Date());
-      gtag('config', measurementId);
+
+      function removeBanner() {
+        document.querySelector('[data-analytics-consent]')?.remove();
+      }
+
+      function rememberConsent(value) {
+        localStorage.setItem(consentKey, value);
+        removeBanner();
+        if (value === 'accepted') loadAnalytics();
+      }
+
+      if (localStorage.getItem(consentKey) === 'accepted') {
+        loadAnalytics();
+      } else if (!localStorage.getItem(consentKey)) {
+        document.addEventListener('DOMContentLoaded', () => {
+          const banner = document.createElement('div');
+          banner.setAttribute('data-analytics-consent', '');
+          banner.className = 'fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl rounded-lg border border-white/10 bg-asphalt/95 p-4 shadow-2xl backdrop-blur-xl';
+          banner.innerHTML = `
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <p class="text-sm leading-6 text-zinc-300">
+                This site uses optional analytics to understand traffic and improve the tracker. Polls and core pages work without analytics.
+              </p>
+              <div class="flex shrink-0 gap-2">
+                <button class="rounded-full border border-white/15 px-4 py-2 text-sm font-bold text-white transition hover:border-mint hover:text-mint" type="button" data-analytics-decline>Decline</button>
+                <button class="rounded-full bg-mint px-4 py-2 text-sm font-bold text-black transition hover:bg-white" type="button" data-analytics-accept>Accept</button>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(banner);
+          banner.querySelector('[data-analytics-accept]')?.addEventListener('click', () => rememberConsent('accepted'));
+          banner.querySelector('[data-analytics-decline]')?.addEventListener('click', () => rememberConsent('declined'));
+        });
+      }
     </script>
   </>
 )}
