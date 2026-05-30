@@ -26,5 +26,33 @@
   {
     "question": "How many days until GTA 6?",
     "answer": "The live countdown on this site calculates the remaining days, hours, minutes and seconds until November 19, 2026."
+  },
+  {
+    "question": "Why does this site still say price TBA?",
+    "answer": "Because no official Rockstar or first-party platform store price has been published. The tracker keeps price TBA until a verifiable official source changes."
+  },
+  {
+    "question": "Does wishlist mean pre-order?",
+    "answer": "No. Wishlist is an interest or reminder feature. Pre-order means a store lets you reserve or buy a specific edition."
+  },
+  {
+    "question": "What source would update the pre-order status?",
+    "answer": "A live official platform store page or trusted retailer page with a confirmed product, platform, edition, price and purchase flow would be enough to update the status."
+  },
+  {
+    "question": "Why is PC listed separately?",
+    "answer": "PC is listed separately because the current launch platform messaging confirms PlayStation 5 and Xbox Series X|S, while a PC launch has not been officially announced."
+  },
+  {
+    "question": "Can regional launch times differ?",
+    "answer": "Yes. The release date can be official while exact unlock times still vary by region, store or platform policy."
+  },
+  {
+    "question": "How often is the tracker checked?",
+    "answer": "A daily source-check workflow reviews tracked official pages and records whether expected public signals are still present."
+  },
+  {
+    "question": "Is this an official GTA 6 website?",
+    "answer": "No. This is an unofficial fan-made tracker and is not affiliated with Rockstar Games or Take-Two Interactive."
   }
 ]

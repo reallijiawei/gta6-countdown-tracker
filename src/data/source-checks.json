@@ -1,5 +1,5 @@
 {
-  "lastChecked": "2026-05-29",
+  "lastChecked": "2026-05-30",
   "overallStatus": "ok",
   "note": "Tracked official sources were reachable and expected public signals were present.",
   "sources": [
@@ -14,7 +14,7 @@
         "Xbox Series X|S"
       ],
       "missingSignals": [],
-      "checkedAt": "2026-05-29T01:02:21.895Z"
+      "checkedAt": "2026-05-30T07:58:59.785Z"
     },
     {
       "id": "rockstar-gta-vi-release-date",
@@ -26,7 +26,7 @@
         "November 19, 2026"
       ],
       "missingSignals": [],
-      "checkedAt": "2026-05-29T01:02:21.895Z"
+      "checkedAt": "2026-05-30T07:58:59.785Z"
     },
     {
       "id": "playstation-store-gta-vi",
@@ -36,7 +36,7 @@
       "status": 200,
       "matchedSignals": [],
       "missingSignals": [],
-      "checkedAt": "2026-05-29T01:02:21.895Z"
+      "checkedAt": "2026-05-30T07:58:59.785Z"
     }
   ]
 }

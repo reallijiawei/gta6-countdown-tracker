@@ -8,7 +8,7 @@ import updates from '../data/updates.json';
     {updates.map((item) => (
       <article class="relative border-l border-white/15 pl-5">
         <span class="absolute -left-[5px] top-1 block h-2.5 w-2.5 rounded-full bg-mint shadow-glow"></span>
-        <p class="text-sm text-zinc-400">{item.date} · {item.type.replace('_', ' ')}</p>
+        <p class="text-sm text-zinc-400">{item.date} - {item.type.replace('_', ' ')}</p>
         <h3 class="mt-1 font-display text-xl font-black text-white">{item.title}</h3>
         <p class="mt-1 text-zinc-300">{item.summary}</p>
         {item.sourceUrl && <a class="mt-2 inline-block text-sm font-bold text-mint underline decoration-mint/30 underline-offset-4" href={item.sourceUrl}>Source: {item.sourceName}</a>}

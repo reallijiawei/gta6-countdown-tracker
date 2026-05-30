@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-05-30",
+    "title": "Daily source check completed",
+    "type": "source_check",
+    "summary": "Tracked official sources were reachable and expected public signals remained present.",
+    "sourceName": "Daily source checker",
+    "sourceUrl": ""
+  },
+  {
     "date": "2026-05-29",
     "title": "Daily source check completed",
     "type": "source_check",

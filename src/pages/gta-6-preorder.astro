@@ -34,13 +34,39 @@ const schema = [
   <section class="mx-auto max-w-7xl space-y-8 px-4 pb-14 sm:px-6">
     <PreorderTable />
     <div class="surface rounded-lg p-6">
-      <h2 class="font-display text-3xl font-black text-white">Get notified when pre-orders go live</h2>
-      <form class="mt-5 grid gap-3 sm:grid-cols-[1fr_auto]">
-        <label class="sr-only" for="email">Email address</label>
-        <input id="email" class="min-h-12 rounded-md border border-white/10 bg-black/30 px-4 text-white outline-none transition placeholder:text-zinc-500 focus:border-mint" type="email" placeholder="you@example.com" />
-        <button class="rounded-md bg-mint px-5 py-3 font-bold text-black transition hover:bg-white" type="button">Notify me</button>
-      </form>
-      <p class="mt-3 text-sm text-zinc-400">Form UI only for MVP. No spam. Only major GTA 6 price and pre-order updates.</p>
+      <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-cyan">Pre-order signal guide</p>
+      <div class="mt-5 grid gap-6 lg:grid-cols-3">
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">Wishlist</h2>
+          <p class="mt-3 text-zinc-300">A wishlist page means the platform is collecting interest or preparing a product page. It does not mean money can be paid or an edition can be reserved.</p>
+        </article>
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">Placeholder</h2>
+          <p class="mt-3 text-zinc-300">Retail placeholders can appear before official details. They should be monitored, but not treated as live availability unless the page clearly supports checkout.</p>
+        </article>
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">Live pre-order</h2>
+          <p class="mt-3 text-zinc-300">A live pre-order should show an official store, confirmed edition, price, supported platform and purchase flow. That is the threshold for changing this page’s status.</p>
+        </article>
+      </div>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">What to check before buying</h2>
+        <p class="mt-3 text-zinc-300">Confirm the region, platform, edition, refund policy and whether the seller is an official platform store or a trusted retailer.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">What this tracker avoids</h2>
+        <p class="mt-3 text-zinc-300">No gray-market keys, account sales, leaked downloads, fake beta access or unofficial checkout links are included.</p>
+      </article>
+    </div>
+    <div class="surface rounded-lg p-6">
+      <h2 class="font-display text-3xl font-black text-white">What will change when pre-orders go live?</h2>
+      <div class="mt-5 grid gap-5 md:grid-cols-3">
+        <p class="text-zinc-300">The status card should move from not live to live for stores with a confirmed checkout flow.</p>
+        <p class="text-zinc-300">The table should add edition names, official prices, regions and direct store links.</p>
+        <p class="text-zinc-300">The update timeline should record the source and date so readers can audit the change later.</p>
+      </div>
     </div>
     <FAQSection limit={5} />
   </section>
