@@ -1,0 +1,68 @@
+---
+import CountdownTimer from '../components/CountdownTimer.astro';
+import FAQSection from '../components/FAQSection.astro';
+import SourceFreshness from '../components/SourceFreshness.astro';
+import StatusCards from '../components/StatusCards.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import game from '../data/game.json';
+import { breadcrumbSchema, faqItems, faqSchema, videoGameSchema } from '../lib/seo';
+
+const title = 'GTA 6 Release Date: Official Launch Date and Delay Status';
+const description = 'GTA 6 is officially listed for November 19, 2026. Track the release date, delay status, launch platforms and countdown in one updated page.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'Release date', pathname: '/gta-6-release-date' },
+  ]),
+  videoGameSchema(),
+  faqSchema(faqItems(6)),
+];
+---
+
+<MainLayout title={title} description={description} pathname="/gta-6-release-date" schema={schema}>
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-mint">Official release date</p>
+    <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">GTA 6 is listed for {game.officialReleaseDateText}.</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-zinc-300">
+      This page keeps the release date answer separate from price rumors and pre-order noise. The current tracked date is based on official Rockstar launch messaging, with PS5 and Xbox Series X|S listed as the launch platforms.
+    </p>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a class="rounded-full bg-mint px-5 py-3 font-bold text-black transition hover:bg-white" href="/gta-6-countdown">Open live countdown</a>
+      <a class="rounded-full border border-white/15 px-5 py-3 font-bold text-white transition hover:border-cyan hover:text-cyan" href="/gta-6-platforms">Check platforms</a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl space-y-8 px-4 pb-14 sm:px-6">
+    <CountdownTimer />
+    <StatusCards />
+    <div class="surface rounded-lg p-6">
+      <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-cyan">Release date facts</p>
+      <div class="mt-5 grid gap-6 lg:grid-cols-3">
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">Current date</h2>
+          <p class="mt-3 text-zinc-300">{game.officialReleaseDateText} is the tracked public release date for this site.</p>
+        </article>
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">Delay status</h2>
+          <p class="mt-3 text-zinc-300">No newer official date is reflected in the tracker. Daily source checks keep the public status conservative until a verified source changes.</p>
+        </article>
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">Unlock timing</h2>
+          <p class="mt-3 text-zinc-300">Exact digital unlock hours may still vary by region, store and platform policy, even when the release date itself is official.</p>
+        </article>
+      </div>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">What would change this page?</h2>
+        <p class="mt-3 text-zinc-300">A Rockstar Newswire update, official GTA VI page change, or first-party platform store update with a different release date would trigger a manual review and data update.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">Why this page exists</h2>
+        <p class="mt-3 text-zinc-300">Many searches ask only for the date. A dedicated page gives a clear answer without forcing users through price tables or pre-order sections.</p>
+      </article>
+    </div>
+    <SourceFreshness />
+    <FAQSection limit={6} />
+  </section>
+</MainLayout>

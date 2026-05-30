@@ -10,8 +10,8 @@ import UpdateTimeline from '../components/UpdateTimeline.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { breadcrumbSchema, faqItems, faqSchema, videoGameSchema } from '../lib/seo';
 
-const title = 'GTA 6 Countdown, Price & Pre-order Tracker';
-const description = 'Track the GTA 6 release countdown, official price status, pre-order availability, platforms, editions and historical GTA data in one unofficial fan-made tracker.';
+const title = 'GTA 6 Countdown: Release Date, Price and Pre-order Tracker';
+const description = 'See the GTA 6 countdown, official November 19, 2026 release date, price status, pre-order availability and confirmed PS5/Xbox platforms.';
 const schema = [
   breadcrumbSchema([
     { name: 'Home', pathname: '/' },
@@ -34,6 +34,7 @@ const schema = [
       <div class="mt-8 flex flex-wrap gap-3">
         <a class="rounded-full bg-mint px-5 py-3 font-bold text-black transition hover:bg-white" href="/gta-6-countdown">View countdown</a>
         <a class="rounded-full border border-white/15 px-5 py-3 font-bold text-white transition hover:border-mint hover:text-mint" href="/gta-6-price">Check price status</a>
+        <a class="rounded-full border border-white/15 px-5 py-3 font-bold text-white transition hover:border-cyan hover:text-cyan" href="/gta-6-release-date">Release date details</a>
       </div>
     </div>
     <div class="surface relative min-h-[440px] overflow-hidden rounded-lg p-6">
@@ -121,6 +122,31 @@ const schema = [
         <h2 class="font-display text-3xl font-black text-white">Pre-orders are not officially live.</h2>
       </div>
       <PreorderTable />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 pb-14 sm:px-6">
+    <div class="surface rounded-lg p-6">
+      <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-cyan">Popular checks</p>
+      <h2 class="mt-2 font-display text-3xl font-black text-white">Jump to the GTA 6 answer you need.</h2>
+      <div class="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <a class="rounded-md border border-white/10 bg-black/25 p-4 transition hover:border-mint" href="/gta-6-release-date">
+          <span class="font-display text-lg font-black text-white">Release date</span>
+          <span class="mt-2 block text-sm text-zinc-400">Official date, delay status and unlock caveats.</span>
+        </a>
+        <a class="rounded-md border border-white/10 bg-black/25 p-4 transition hover:border-mint" href="/gta-6-platforms">
+          <span class="font-display text-lg font-black text-white">Platforms</span>
+          <span class="mt-2 block text-sm text-zinc-400">PS5, Xbox Series X|S and PC status.</span>
+        </a>
+        <a class="rounded-md border border-white/10 bg-black/25 p-4 transition hover:border-mint" href="/gta-6-preorder">
+          <span class="font-display text-lg font-black text-white">Pre-order</span>
+          <span class="mt-2 block text-sm text-zinc-400">Wishlist versus live pre-order signals.</span>
+        </a>
+        <a class="rounded-md border border-white/10 bg-black/25 p-4 transition hover:border-mint" href="/gta-6-history">
+          <span class="font-display text-lg font-black text-white">GTA history</span>
+          <span class="mt-2 block text-sm text-zinc-400">Release timeline and series context.</span>
+        </a>
+      </div>
     </div>
   </section>
 

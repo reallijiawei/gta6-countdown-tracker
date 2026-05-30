@@ -42,6 +42,22 @@ export function websiteSchema() {
   };
 }
 
+export function webPageSchema({ title, description, pathname }: { title: string; description: string; pathname: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: canonical(pathname),
+    isPartOf: {
+      '@type': 'WebSite',
+      name: siteName,
+      url: baseUrl,
+    },
+    dateModified: game.lastUpdated,
+  };
+}
+
 export function breadcrumbSchema(items: Array<{ name: string; pathname: string }>) {
   return {
     '@context': 'https://schema.org',
@@ -65,5 +81,6 @@ export function videoGameSchema() {
     developer: game.developer,
     gamePlatform: game.platforms,
     datePublished: game.releaseDate,
+    sameAs: 'https://www.rockstargames.com/VI',
   };
 }

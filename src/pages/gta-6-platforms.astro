@@ -1,0 +1,74 @@
+---
+import FAQSection from '../components/FAQSection.astro';
+import SourceFreshness from '../components/SourceFreshness.astro';
+import StatusPill from '../components/StatusPill.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import game from '../data/game.json';
+import { breadcrumbSchema, faqItems, faqSchema, videoGameSchema } from '../lib/seo';
+
+const title = 'GTA 6 Platforms: PS5, Xbox Series X|S and PC Status';
+const description = 'Track confirmed GTA 6 platforms. PS5 and Xbox Series X|S are listed for launch, while a PC version is not officially announced for launch.';
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', pathname: '/' },
+    { name: 'Platforms', pathname: '/gta-6-platforms' },
+  ]),
+  videoGameSchema(),
+  faqSchema(faqItems(6)),
+];
+
+const statusByPlatform = {
+  announced: 'Confirmed for launch messaging',
+  not_officially_announced: 'Not officially announced for launch',
+};
+---
+
+<MainLayout title={title} description={description} pathname="/gta-6-platforms" schema={schema}>
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <p class="font-display text-xs font-black uppercase tracking-[0.22em] text-cyan">Platform status</p>
+    <h1 class="mt-4 max-w-4xl font-display text-5xl font-black leading-tight text-white">GTA 6 platform tracker: PS5 and Xbox are confirmed, PC is not listed for launch.</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-zinc-300">
+      This page separates confirmed launch platforms from expected-but-unannounced versions. The public status stays conservative until Rockstar or first-party platform pages change.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-7xl space-y-8 px-4 pb-14 sm:px-6">
+    <div class="grid gap-5 md:grid-cols-3">
+      {game.platforms.map((platform) => (
+        <article class="surface rounded-lg p-6">
+          <p class="text-sm text-zinc-400">Platform</p>
+          <h2 class="mt-2 font-display text-2xl font-black text-white">{platform.name}</h2>
+          <div class="mt-4">
+            <StatusPill status={platform.status} />
+          </div>
+          <p class="mt-4 text-zinc-300">{statusByPlatform[platform.status as keyof typeof statusByPlatform]}</p>
+        </article>
+      ))}
+    </div>
+    <div class="surface rounded-lg p-6">
+      <p class="font-display text-xs font-bold uppercase tracking-[0.18em] text-mint">Platform notes</p>
+      <div class="mt-5 grid gap-6 lg:grid-cols-2">
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">Console launch status</h2>
+          <p class="mt-3 text-zinc-300">PlayStation 5 and Xbox Series X|S are the confirmed launch platforms tracked here. Store pages may support wishlisting before pre-orders or pricing go live.</p>
+        </article>
+        <article>
+          <h2 class="font-display text-2xl font-black text-white">PC status</h2>
+          <p class="mt-3 text-zinc-300">A PC version may be expected by many players, but it is not treated as a launch platform until official messaging says so.</p>
+        </article>
+      </div>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">What would confirm PC?</h2>
+        <p class="mt-3 text-zinc-300">A Rockstar announcement, official GTA VI page update, Steam/Epic listing, or first-party statement with a PC date would be strong enough to update this page.</p>
+      </article>
+      <article class="surface rounded-lg p-6">
+        <h2 class="font-display text-2xl font-black text-white">Useful related checks</h2>
+        <p class="mt-3 text-zinc-300">Use the release date page for the official launch date, the countdown page for timing, and the pre-order page for store availability.</p>
+      </article>
+    </div>
+    <SourceFreshness />
+    <FAQSection limit={6} />
+  </section>
+</MainLayout>

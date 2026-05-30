@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { canonical, siteName, socialImageUrl, websiteSchema } from '../lib/seo';
+import { canonical, siteName, socialImageUrl, webPageSchema, websiteSchema } from '../lib/seo';
 import Disclaimer from '../components/Disclaimer.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import game from '../data/game.json';
@@ -14,7 +14,7 @@ interface Props {
 
 const { title, description, pathname, schema = [] } = Astro.props;
 const url = canonical(pathname);
-const jsonLd = [websiteSchema(), ...schema];
+const jsonLd = [websiteSchema(), webPageSchema({ title, description, pathname }), ...schema];
 const socialImage = socialImageUrl(pathname);
 
 const nav = [
@@ -22,6 +22,8 @@ const nav = [
   ['/gta-6-price', 'Price'],
   ['/gta-6-preorder', 'Pre-order'],
   ['/gta-6-countdown', 'Countdown'],
+  ['/gta-6-release-date', 'Release date'],
+  ['/gta-6-platforms', 'Platforms'],
   ['/gta-6-history', 'History'],
   ['/about', 'About'],
   ['/privacy', 'Privacy'],
