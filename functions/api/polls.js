@@ -1,6 +1,6 @@
 import { createPollState, mergePollState, recordVote, serializePolls } from '../../scripts/polls-core.mjs';
 
-const STORAGE_KEY = 'polls:v1';
+const STORAGE_KEY = 'polls:v2';
 
 function json(data, init = {}) {
   return new Response(JSON.stringify(data), {

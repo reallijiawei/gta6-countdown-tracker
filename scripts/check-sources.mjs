@@ -26,6 +26,12 @@ const sources = [
     url: 'https://store.playstation.com/concept/10000730',
     signals: [],
   },
+  {
+    id: 'xbox-store-gta-vi',
+    label: 'Xbox Store GTA VI page',
+    url: 'https://www.xbox.com/en-US/games/store/grand-theft-auto-vi/9nl3wwnzlzzn',
+    signals: ['Grand Theft Auto VI', 'Xbox Series X|S'],
+  },
 ];
 
 async function readJson(file) {

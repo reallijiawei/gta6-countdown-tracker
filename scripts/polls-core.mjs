@@ -4,19 +4,19 @@ export function createPollState() {
       id: 'price',
       label: 'What do you think GTA 6 will cost?',
       options: [
-        { id: 'price-6999', label: '$69.99', votes: 28 },
-        { id: 'price-7999', label: '$79.99', votes: 34 },
-        { id: 'price-8999', label: '$89.99', votes: 21 },
-        { id: 'price-9999-plus', label: '$99.99+', votes: 17 },
+        { id: 'price-6999', label: '$69.99', votes: 0 },
+        { id: 'price-7999', label: '$79.99', votes: 0 },
+        { id: 'price-8999', label: '$89.99', votes: 0 },
+        { id: 'price-9999-plus', label: '$99.99+', votes: 0 },
       ],
     },
     platform: {
       id: 'platform',
       label: 'Which platform will you play on?',
       options: [
-        { id: 'platform-ps5', label: 'PlayStation 5', votes: 46 },
-        { id: 'platform-xbox', label: 'Xbox Series X|S', votes: 31 },
-        { id: 'platform-pc', label: 'Waiting for PC', votes: 23 },
+        { id: 'platform-ps5', label: 'PlayStation 5', votes: 0 },
+        { id: 'platform-xbox', label: 'Xbox Series X|S', votes: 0 },
+        { id: 'platform-pc', label: 'Waiting for PC', votes: 0 },
       ],
     },
   };
